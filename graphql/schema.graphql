@@ -1,0 +1,17 @@
+type Query {
+  getPosts: GetPostsResponse!
+}
+
+type GetPostsResponse {
+  posts: PostsNode!
+}
+
+type PostsNode {
+  nodes: [Post!]!
+}
+
+type Post {
+  id: String!
+  title: String!
+  content: String!
+}
