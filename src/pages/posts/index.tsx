@@ -26,5 +26,6 @@ export default Index;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const posts = await getPosts();
+  console.log(posts);
   return { props: { posts } };
 };

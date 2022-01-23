@@ -1,5 +1,6 @@
 type Query {
   getPosts: GetPostsResponse!
+  getPost: GetPostResponse!
 }
 
 type GetPostsResponse {
@@ -7,11 +8,31 @@ type GetPostsResponse {
 }
 
 type PostsNode {
-  nodes: [Post!]!
+  nodes: [Posts!]!
+}
+
+type GetPostResponse {
+  post: Post!
+}
+
+type Posts {
+  id: String!
+  title: String!
+  date: String!
 }
 
 type Post {
   id: String!
   title: String!
+  content: String!
   date: String!
+  featuredImage: FeaturedImageNode!
+}
+
+type FeaturedImageNode {
+  node: MediaItemUrl!
+}
+
+type MediaItemUrl {
+  mediaItemUrl: String!
 }

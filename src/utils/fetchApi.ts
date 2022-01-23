@@ -14,6 +14,8 @@ const fetchApi = async (query: string, { variables }: any = {}) => {
   //   ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`;
   // }
 
+  console.log({ query, variables });
+
   const res = await fetch(ApiUrl, {
     method: 'POST',
     headers: getHeaders(),
