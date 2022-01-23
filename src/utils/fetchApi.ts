@@ -8,13 +8,12 @@ const fetchApi = async (query: string, { variables }: any = {}) => {
     return headers;
   };
 
+  // 本番でwordpress接続時に使うかも？（使わなかったら削除）
   // if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
   //   headers[
   //     'Authorization'
   //   ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`;
   // }
-
-  console.log({ query, variables });
 
   const res = await fetch(ApiUrl, {
     method: 'POST',
