@@ -1,0 +1,47 @@
+type Query {
+  # 投稿一覧
+  getPosts: GetPostsResponse!
+  # 投稿
+  getPost: GetPostResponse!
+}
+
+# ** 投稿一覧 ** #
+type GetPostsResponse {
+  posts: PostsNode!
+}
+type PostsNode {
+  nodes: [Posts!]!
+}
+type GetPostResponse {
+  post: Post!
+}
+type Posts {
+  # 投稿ID
+  id: String!
+  # 投稿タイトル
+  title: String!
+  # 最終更新日
+  date: String!
+}
+
+# ** 投稿 ** #
+type Post {
+  # 投稿ID
+  id: ID!
+  # 投稿タイトル
+  title: String!
+  # 本文
+  content: String!
+  # 最終更新日
+  date: String!
+  # アイキャッチイメージURL
+  featuredImage: FeaturedImageNode!
+}
+
+type FeaturedImageNode {
+  node: MediaItemUrl!
+}
+
+type MediaItemUrl {
+  mediaItemUrl: String!
+}
