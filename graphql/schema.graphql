@@ -1,6 +1,7 @@
 type Query {
-投稿一覧
+  # 投稿一覧
   getPosts: GetPostsResponse!
+  # 投稿
   getPost: GetPostResponse!
 }
 
