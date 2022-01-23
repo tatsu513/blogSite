@@ -9,10 +9,11 @@ import useGetPosts from 'hooks/useGetPosts';
 const uri = 'https://tatsu513.com/graphql';
 
 const Home: NextPage = () => {
-  const a = process.env.NEXT_PUBLIC_WP_API_URL;
   const { data, error } = useGetPosts();
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
+
+  console.log(data);
 
   return (
     <div className={styles.container}>

@@ -5,7 +5,7 @@ const GraphqlPostsToFrontendPosts = (graphqlPosts: GetPostsResponse) => {
     return {
       id: post.id,
       title: post.title,
-      conetnt: post.content,
+      content: post.content,
     };
   });
   return posts;
