@@ -24,6 +24,7 @@ export type GetPostsResponse = {
 export type Post = {
   __typename?: 'Post';
   content: Scalars['String'];
+  date: Scalars['String'];
   id: Scalars['String'];
   title: Scalars['String'];
 };
@@ -132,6 +133,7 @@ export type GetPostsResponseResolvers<ContextType = any, ParentType extends Reso
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

@@ -13,5 +13,5 @@ type PostsNode {
 type Post {
   id: String!
   title: String!
-  content: String!
+  date: String!
 }

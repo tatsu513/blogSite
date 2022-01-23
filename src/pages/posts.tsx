@@ -14,7 +14,7 @@ const Index: NextPage<Props> = ({ posts }) => {
         {posts.map((post) => (
           <li key={post.id}>
             <div>{post.title}</div>
-            <div>{post.content}</div>
+            <div>{post.date}</div>
           </li>
         ))}
       </ul>
