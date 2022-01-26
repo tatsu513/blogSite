@@ -3,7 +3,6 @@ import React, { ReactNode } from 'react';
 
 type PostCardProps = {
   category: string;
-  content: string;
   date: string;
   id: string;
   mediaUrl: string;
@@ -21,7 +20,6 @@ const titleBoxStyle = {
 
 const PostCard: React.VFC<PostCardProps> = ({
   category,
-  content,
   date,
   id,
   mediaUrl,
