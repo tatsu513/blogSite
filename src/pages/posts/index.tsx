@@ -1,3 +1,4 @@
+import { MenuItem, List, Typography } from '@mui/material';
 import { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import { Post } from 'dao/generated/graphql';
@@ -10,14 +11,14 @@ type Props = {
 const Index: NextPage<Props> = ({ posts }) => {
   return (
     <>
-      <ul>
+      <List>
         {posts.map((post) => (
-          <li key={post.id}>
-            <div>{post.title}</div>
-            <div>{post.date}</div>
-          </li>
+          <MenuItem key={post.id}>
+            <Typography>{post.title}</Typography>
+            <Typography>{post.date}</Typography>
+          </MenuItem>
         ))}
-      </ul>
+      </List>
     </>
   );
 };
