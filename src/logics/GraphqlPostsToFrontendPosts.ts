@@ -1,15 +1,14 @@
-import { GetPostsResponse } from 'dao/generated/graphql';
+import { GotPost, Post } from 'dao/generated/graphql';
 
-const GraphqlPostsToFrontendPosts = (graphqlPosts: GetPostsResponse) => {
-  const posts = graphqlPosts.posts.nodes.map((post) => {
-    return {
-      id: post.id,
-      title: post.title,
-      content: post.content,
-      date: post.date,
-    };
-  });
-  return posts;
+const GraphqlPostsToFrontendPosts = (post: GotPost): Post => {
+  return {
+    id: post.id,
+    title: post.title,
+    content: post.content,
+    date: post.date,
+    category: post.categories.nodes[0].name ?? '',
+    mediaItemUrl: post.featuredImage.node.mediaItemUrl,
+  };
 };
 
 export default GraphqlPostsToFrontendPosts;
