@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import '../styles/reset.scss';
 import { Box, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import theme from '../theme';
@@ -8,13 +8,20 @@ const containerStyle = {
   width: '100%',
   margin: '0 auto',
 };
+const contentStyle = {
+  maxWidth: '1440px',
+  margin: '0 auto',
+  padding: '0 48px',
+};
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ ...containerStyle }}>
         <Header />
-        <Component {...pageProps} />
+        <Box sx={{ ...contentStyle }}>
+          <Component {...pageProps} />
+        </Box>
       </Box>
     </ThemeProvider>
   );

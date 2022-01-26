@@ -14,7 +14,7 @@ const Index: NextPage<Props> = ({ posts }) => {
       <List>
         {posts.map((post) => (
           <MenuItem key={post.id}>
-            <Typography variant='h3'>{post.title}</Typography>
+            <Typography>{post.title}</Typography>
             <Typography>{post.date}</Typography>
           </MenuItem>
         ))}
