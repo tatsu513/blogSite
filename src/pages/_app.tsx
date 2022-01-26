@@ -1,10 +1,23 @@
 import '../styles/globals.css';
+import { Box, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
+import theme from '../theme';
+import Header from 'components/Header';
 
-const API = 'https://countries.trevorblades.com';
+const containerStyle = {
+  width: '100%',
+  margin: '0 auto',
+};
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Box sx={{ ...containerStyle }}>
+        <Header />
+        <Component {...pageProps} />
+      </Box>
+    </ThemeProvider>
+  );
+};
 
 export default MyApp;
