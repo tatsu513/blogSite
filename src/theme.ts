@@ -1,14 +1,18 @@
 import { createTheme } from '@mui/material';
-import { black, gray } from 'color';
+import { black, gray, green } from 'color';
 
 const theme = createTheme({
   typography: {
     fontFamily: ['Noto Sans JP', 'sans-serif'].join(','),
     h1: {
-      fontSize: '24px',
+      fontSize: '28px',
     },
     h2: {
+      fontSize: '24px',
+    },
+    h3: {
       fontSize: '20px',
+      color: green[200],
     },
     body1: {
       fontSize: '16px',
