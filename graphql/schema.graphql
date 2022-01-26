@@ -10,18 +10,38 @@ type GetPostsResponse {
   posts: PostsNode!
 }
 type PostsNode {
-  nodes: [Posts!]!
+  nodes: [GotPost!]!
 }
 type GetPostResponse {
-  post: Post!
+  post: GotPost!
 }
-type Posts {
+
+# ** WPする取得した値 ** #
+type GotPost {
   # 投稿ID
-  id: String!
+  id: ID!
   # 投稿タイトル
   title: String!
+  # 本文
+  content: String!
   # 最終更新日
   date: String!
+  # カテゴリ
+  categories: Categories!
+  # アイキャッチイメージURL
+  featuredImage: FeaturedImageNode!
+}
+type Categories {
+  nodes: [CategoriesNode!]!
+}
+type CategoriesNode {
+  name: String
+}
+type FeaturedImageNode {
+  node: MediaItemUrl!
+}
+type MediaItemUrl {
+  mediaItemUrl: String!
 }
 
 # ** 投稿 ** #
@@ -34,14 +54,8 @@ type Post {
   content: String!
   # 最終更新日
   date: String!
+  # カテゴリ
+  category: String!
   # アイキャッチイメージURL
-  featuredImage: FeaturedImageNode!
-}
-
-type FeaturedImageNode {
-  node: MediaItemUrl!
-}
-
-type MediaItemUrl {
   mediaItemUrl: String!
 }

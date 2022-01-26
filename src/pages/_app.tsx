@@ -10,7 +10,7 @@ const containerStyle = {
 };
 const contentStyle = {
   maxWidth: '1440px',
-  margin: '0 auto',
+  margin: '80px auto 0',
   padding: '0 48px',
 };
 

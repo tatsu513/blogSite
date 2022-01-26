@@ -16,14 +16,18 @@ const theme = createTheme({
     },
     body1: {
       fontSize: '16px',
+      whiteSpace: 'normal',
     },
     body2: {
       fontSize: '14px',
+      whiteSpace: 'normal',
     },
     caption: {
       // Montserratを追加（不都合が出てきたら削除する）
+      color: gray[200],
       fontSize: '12px',
       fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
+      fontWeight: '600',
     },
   },
   palette: {
