@@ -1,3 +1,4 @@
+import WordpressDateToString from './converters.ts/WordpressDateToString';
 import { Post, PostsPageResponse } from 'dao/generated/graphql';
 
 const GraphqlPostsToFrontendPosts = (res: PostsPageResponse): Post[] => {
@@ -6,7 +7,7 @@ const GraphqlPostsToFrontendPosts = (res: PostsPageResponse): Post[] => {
     id: n.id,
     title: n.title,
     content: n.content,
-    date: n.date,
+    date: WordpressDateToString(n.date),
     category: n.categories?.nodes[0].name ?? '',
     mediaItemUrl: n.featuredImage?.node.mediaItemUrl,
   }));
