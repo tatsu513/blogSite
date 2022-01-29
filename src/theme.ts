@@ -4,6 +4,9 @@ import { black, gray, green } from 'color';
 const theme = createTheme({
   typography: {
     fontFamily: ['Noto Sans JP', 'sans-serif'].join(','),
+    allVariants: {
+      color: black,
+    },
     h1: {
       fontSize: '28px',
     },

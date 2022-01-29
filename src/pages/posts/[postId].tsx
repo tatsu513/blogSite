@@ -22,6 +22,9 @@ const imageBoxStyle = {
   overflow: 'hidden',
   position: 'relative',
 };
+const titleStyle = {
+  textAlign: 'justify',
+};
 
 const Index: NextPage<Props> = ({ post }) => {
   return (
@@ -34,7 +37,9 @@ const Index: NextPage<Props> = ({ post }) => {
         <Typography variant='caption'>{post.category}</Typography>
         <Typography variant='caption'>{post.date}</Typography>
       </Box>
-      <Typography variant='h1'>{post.title}</Typography>
+      <Typography variant='h1' sx={{ ...titleStyle }}>
+        {post.title}
+      </Typography>
       <Box sx={{ ...imageBoxStyle }}>
         <Image
           src={post.mediaItemUrl}

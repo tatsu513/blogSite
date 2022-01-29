@@ -6,7 +6,12 @@ type PostContentProps = {
 };
 
 const PostContent: React.VFC<PostContentProps> = ({ content }) => {
-  return <Box dangerouslySetInnerHTML={{ __html: content }} />;
+  return (
+    <Box
+      className='postContainer'
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
+  );
 };
 
 export default PostContent;
