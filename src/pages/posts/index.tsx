@@ -1,5 +1,6 @@
 import { MenuItem, List, Typography } from '@mui/material';
 import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
 import React from 'react';
 import PostCard from 'components/PostCard';
 import { Post } from 'dao/generated/graphql';
@@ -31,15 +32,17 @@ const Index: NextPage<Props> = ({ posts }) => {
     <>
       <List sx={{ ...listStyle }}>
         {posts.map((post) => (
-          <MenuItem sx={{ ...menuItemStyle }} key={post.id}>
-            <PostCard
-              mediaUrl={post.mediaItemUrl}
-              category={post.category}
-              date={post.date}
-              id={post.id}
-              title={post.title}
-            />
-          </MenuItem>
+          <Link href={`/posts/${post.id}`} key={post.id} passHref>
+            <MenuItem sx={{ ...menuItemStyle }}>
+              <PostCard
+                mediaUrl={post.mediaItemUrl}
+                category={post.category}
+                date={post.date}
+                id={post.id}
+                title={post.title}
+              />
+            </MenuItem>
+          </Link>
         ))}
         {[...Array(3)].map((a, i) => (
           <MenuItem sx={{ ...menuItemStyle }} key={i}>
