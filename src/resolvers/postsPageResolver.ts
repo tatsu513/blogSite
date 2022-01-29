@@ -2,7 +2,7 @@ import { Post, PostsPageResponse } from 'dao/generated/graphql';
 import GraphqlPostsToFrontendPosts from 'logics/GraphqlPostsToFrontendPosts';
 import fetchApi from 'utils/fetchApi';
 
-const postsResolver = async (): Promise<Post[]> => {
+const postsPageResolver = async (): Promise<Post[]> => {
   const query = `{
     posts {
       nodes {
@@ -27,4 +27,4 @@ const postsResolver = async (): Promise<Post[]> => {
   return GraphqlPostsToFrontendPosts(result);
 };
 
-export default postsResolver;
+export default postsPageResolver;

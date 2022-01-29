@@ -56,25 +56,25 @@ export type Post = {
   title: Scalars['String'];
 };
 
+export type PostPageResponse = {
+  __typename?: 'PostPageResponse';
+  post: GotPost;
+};
+
 export type PostsNode = {
   __typename?: 'PostsNode';
   nodes: Array<GotPost>;
 };
 
+export type PostsPageResponse = {
+  __typename?: 'PostsPageResponse';
+  posts: PostsNode;
+};
+
 export type Query = {
   __typename?: 'Query';
-  postPage: PostPageResponse;
+  postPage: Post;
   postsPage: Array<Post>;
-};
-
-export type PostPageResponse = {
-  __typename?: 'postPageResponse';
-  post: GotPost;
-};
-
-export type PostsPageResponse = {
-  __typename?: 'postsPageResponse';
-  posts: PostsNode;
 };
 
 
@@ -154,11 +154,11 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   MediaItemUrl: ResolverTypeWrapper<MediaItemUrl>;
   Post: ResolverTypeWrapper<Post>;
+  PostPageResponse: ResolverTypeWrapper<PostPageResponse>;
   PostsNode: ResolverTypeWrapper<PostsNode>;
+  PostsPageResponse: ResolverTypeWrapper<PostsPageResponse>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  postPageResponse: ResolverTypeWrapper<PostPageResponse>;
-  postsPageResponse: ResolverTypeWrapper<PostsPageResponse>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -171,11 +171,11 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   MediaItemUrl: MediaItemUrl;
   Post: Post;
+  PostPageResponse: PostPageResponse;
   PostsNode: PostsNode;
+  PostsPageResponse: PostsPageResponse;
   Query: {};
   String: Scalars['String'];
-  postPageResponse: PostPageResponse;
-  postsPageResponse: PostsPageResponse;
 };
 
 export type CategoriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['Categories'] = ResolversParentTypes['Categories']> = {
@@ -218,24 +218,24 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type PostPageResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostPageResponse'] = ResolversParentTypes['PostPageResponse']> = {
+  post?: Resolver<ResolversTypes['GotPost'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type PostsNodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostsNode'] = ResolversParentTypes['PostsNode']> = {
   nodes?: Resolver<Array<ResolversTypes['GotPost']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  postPage?: Resolver<ResolversTypes['postPageResponse'], ParentType, ContextType>;
-  postsPage?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
-};
-
-export type PostPageResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['postPageResponse'] = ResolversParentTypes['postPageResponse']> = {
-  post?: Resolver<ResolversTypes['GotPost'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type PostsPageResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['postsPageResponse'] = ResolversParentTypes['postsPageResponse']> = {
+export type PostsPageResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostsPageResponse'] = ResolversParentTypes['PostsPageResponse']> = {
   posts?: Resolver<ResolversTypes['PostsNode'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  postPage?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
+  postsPage?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
@@ -245,10 +245,10 @@ export type Resolvers<ContextType = any> = {
   GotPost?: GotPostResolvers<ContextType>;
   MediaItemUrl?: MediaItemUrlResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  PostPageResponse?: PostPageResponseResolvers<ContextType>;
   PostsNode?: PostsNodeResolvers<ContextType>;
+  PostsPageResponse?: PostsPageResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  postPageResponse?: PostPageResponseResolvers<ContextType>;
-  postsPageResponse?: PostsPageResponseResolvers<ContextType>;
 };
 
 

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import PostCard from 'components/PostCard';
 import { Post } from 'dao/generated/graphql';
-import postsResolver from 'resolvers/postsResolver';
+import postsPageResolver from 'resolvers/postsPageResolver';
 import { shadow } from 'shodow';
 
 type Props = {
@@ -67,6 +67,7 @@ const Index: NextPage<Props> = ({ posts }) => {
 export default Index;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const posts = await postsResolver();
-  return { props: { posts } };
+  const post = await postsPageResolver();
+  console.log(post);
+  return { props: { post } };
 };

@@ -2,11 +2,11 @@ type Query {
   # 投稿一覧
   postsPage: [Post!]!
   # 投稿
-  postPage: postPageResponse!
+  postPage: Post!
 }
 
 # ** WPから返却される値 ** #
-type postsPageResponse {
+type PostsPageResponse {
   posts: PostsNode!
 }
 type PostsNode {
@@ -14,7 +14,7 @@ type PostsNode {
 }
 
 # ** 投稿 ** #
-type postPageResponse {
+type PostPageResponse {
   post: GotPost!
 }
 
