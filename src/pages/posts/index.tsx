@@ -28,6 +28,7 @@ const menuItemStyle = {
 };
 
 const Index: NextPage<Props> = ({ posts }) => {
+  console.log(posts);
   return (
     <>
       <List sx={{ ...listStyle }}>
@@ -66,8 +67,7 @@ const Index: NextPage<Props> = ({ posts }) => {
 
 export default Index;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const post = await postsPageResolver();
-  console.log(post);
-  return { props: { post } };
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const posts = await postsPageResolver();
+  return { props: { posts } };
 };

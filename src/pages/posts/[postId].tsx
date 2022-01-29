@@ -29,8 +29,8 @@ const Index: NextPage<Props> = ({ post }) => {
 
 export default Index;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { postId } = context.query;
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+  const { postId } = ctx.query;
   const post: Post = await postPageResolver(postId as string);
   return {
     props: { post },
