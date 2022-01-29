@@ -6,11 +6,40 @@ type Query {
 }
 
 # ** WPから返却される値 ** #
+# 投稿一覧
 type PostsPageResponse {
-  posts: PostsNode!
+  categories: CategoryPostNodes!
 }
-type PostsNode {
-  nodes: [GotPost!]!
+type CategoryPostNodes {
+  nodes: [CategoryPostData!]!
+}
+type CategoryPostData {
+  categoryId: ID!
+  name: String!
+  posts: PostsNodes!
+}
+type PostsNodes {
+  nodes: [PostData!]!
+}
+type PostData {
+  id: ID!
+  title: String!
+  date: String!
+  featuredImage: FeaturedImageNode!
+  categories: CategoryNodes!
+}
+type FeaturedImageNode {
+  node: MediaItemUrl!
+}
+type MediaItemUrl {
+  mediaItemUrl: String!
+}
+type CategoryNodes {
+  nodes: [Category!]!
+}
+type CategoryIds {
+  categoryId: ID!
+  name: String!
 }
 
 # ** 投稿 ** #
@@ -39,14 +68,9 @@ type Categories {
 type CategoriesNode {
   name: String
 }
-type FeaturedImageNode {
-  node: MediaItemUrl!
-}
-type MediaItemUrl {
-  mediaItemUrl: String!
-}
 
-# ** Frontend用の投稿データ ** #
+# ** 画面への返却値 ** #
+# 記事画面
 type Post {
   # 投稿ID
   id: ID!
@@ -60,4 +84,21 @@ type Post {
   category: String!
   # アイキャッチイメージURL
   mediaItemUrl: String!
+}
+
+# 記事一覧画面
+type PostsPageData {
+  categories: [Category!]!
+  posts: [Posts!]!
+}
+type Category {
+  id: ID!
+  name: String!
+}
+type Posts {
+  id: ID!
+  title: String!
+  date: String!
+  mediaItemUrl: String!
+  category: Category!
 }

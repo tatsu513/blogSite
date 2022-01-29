@@ -1,30 +1,40 @@
-import { Post, PostsPageResponse } from 'dao/generated/graphql';
-import GraphqlPostsToFrontendPosts from 'logics/GraphqlPostsToFrontendPosts';
+import { PostsPageData, PostsPageResponse } from 'dao/generated/graphql';
+import WordpressPostsPageDataToCategories from 'logics/WordpressPostsPageDataToCategories';
+import WordpressPostsToFrontendPosts from 'logics/WordpressPostsToFrontendPosts';
 import fetchApi from 'utils/fetchApi';
 
-const postsPageResolver = async (): Promise<Post[]> => {
+const postsPageResolver = async (): Promise<PostsPageData> => {
   const query = `{
-    posts {
+    categories {
       nodes {
-        date
-        categories {
+        categoryId
+        name
+        posts {
           nodes {
-            name
+            id
+            title
+            date
+            featuredImage {
+              node {
+                mediaItemUrl
+              }
+            }
+            categories {
+              nodes {
+                categoryId
+                name
+              }
+            }
           }
         }
-        featuredImage {
-          node {
-            mediaItemUrl
-          }
-        }
-        content
-        id
-        title
       }
     }
   }`;
   const result: PostsPageResponse = await fetchApi(query);
-  return GraphqlPostsToFrontendPosts(result);
+  const categories = WordpressPostsPageDataToCategories(result);
+  const posts = WordpressPostsToFrontendPosts(result);
+
+  return { categories, posts };
 };
 
 export default postsPageResolver;

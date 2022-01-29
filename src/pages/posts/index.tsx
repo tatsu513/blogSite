@@ -3,12 +3,12 @@ import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import PostCard from 'components/PostCard';
-import { Post } from 'dao/generated/graphql';
+import { PostsPageData } from 'dao/generated/graphql';
 import postsPageResolver from 'resolvers/postsPageResolver';
 import { shadow } from 'shodow';
 
 type Props = {
-  posts: Post[];
+  postsData: PostsPageData;
 };
 
 const listStyle = {
@@ -27,8 +27,8 @@ const menuItemStyle = {
   },
 };
 
-const Index: NextPage<Props> = ({ posts }) => {
-  console.log(posts);
+const Index: NextPage<Props> = ({ postsData }) => {
+  const { categories, posts } = postsData;
   return (
     <>
       <List sx={{ ...listStyle }}>
@@ -37,7 +37,7 @@ const Index: NextPage<Props> = ({ posts }) => {
             <MenuItem sx={{ ...menuItemStyle }}>
               <PostCard
                 mediaUrl={post.mediaItemUrl}
-                category={post.category}
+                category={post.category.name}
                 date={post.date}
                 id={post.id}
                 title={post.title}
@@ -68,6 +68,11 @@ const Index: NextPage<Props> = ({ posts }) => {
 export default Index;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const posts = await postsPageResolver();
-  return { props: { posts } };
+  const { categories, posts } = await postsPageResolver();
+  const postsData = {};
+  return {
+    props: {
+      postsData: { categories, posts },
+    },
+  };
 };

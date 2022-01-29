@@ -26,6 +26,35 @@ export type CategoriesNode = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type CategoryIds = {
+  __typename?: 'CategoryIds';
+  categoryId: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type CategoryNodes = {
+  __typename?: 'CategoryNodes';
+  nodes: Array<Category>;
+};
+
+export type CategoryPostData = {
+  __typename?: 'CategoryPostData';
+  categoryId: Scalars['ID'];
+  name: Scalars['String'];
+  posts: PostsNodes;
+};
+
+export type CategoryPostNodes = {
+  __typename?: 'CategoryPostNodes';
+  nodes: Array<CategoryPostData>;
+};
+
 export type FeaturedImageNode = {
   __typename?: 'FeaturedImageNode';
   node: MediaItemUrl;
@@ -56,19 +85,43 @@ export type Post = {
   title: Scalars['String'];
 };
 
+export type PostData = {
+  __typename?: 'PostData';
+  categories: CategoryNodes;
+  date: Scalars['String'];
+  featuredImage: FeaturedImageNode;
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
 export type PostPageResponse = {
   __typename?: 'PostPageResponse';
   post: GotPost;
 };
 
-export type PostsNode = {
-  __typename?: 'PostsNode';
-  nodes: Array<GotPost>;
+export type Posts = {
+  __typename?: 'Posts';
+  category: Category;
+  date: Scalars['String'];
+  id: Scalars['ID'];
+  mediaItemUrl: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type PostsNodes = {
+  __typename?: 'PostsNodes';
+  nodes: Array<PostData>;
+};
+
+export type PostsPageData = {
+  __typename?: 'PostsPageData';
+  categories: Array<Category>;
+  posts: Array<Posts>;
 };
 
 export type PostsPageResponse = {
   __typename?: 'PostsPageResponse';
-  posts: PostsNode;
+  categories: CategoryPostNodes;
 };
 
 export type Query = {
@@ -149,13 +202,21 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Categories: ResolverTypeWrapper<Categories>;
   CategoriesNode: ResolverTypeWrapper<CategoriesNode>;
+  Category: ResolverTypeWrapper<Category>;
+  CategoryIds: ResolverTypeWrapper<CategoryIds>;
+  CategoryNodes: ResolverTypeWrapper<CategoryNodes>;
+  CategoryPostData: ResolverTypeWrapper<CategoryPostData>;
+  CategoryPostNodes: ResolverTypeWrapper<CategoryPostNodes>;
   FeaturedImageNode: ResolverTypeWrapper<FeaturedImageNode>;
   GotPost: ResolverTypeWrapper<GotPost>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   MediaItemUrl: ResolverTypeWrapper<MediaItemUrl>;
   Post: ResolverTypeWrapper<Post>;
+  PostData: ResolverTypeWrapper<PostData>;
   PostPageResponse: ResolverTypeWrapper<PostPageResponse>;
-  PostsNode: ResolverTypeWrapper<PostsNode>;
+  Posts: ResolverTypeWrapper<Posts>;
+  PostsNodes: ResolverTypeWrapper<PostsNodes>;
+  PostsPageData: ResolverTypeWrapper<PostsPageData>;
   PostsPageResponse: ResolverTypeWrapper<PostsPageResponse>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -166,13 +227,21 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Categories: Categories;
   CategoriesNode: CategoriesNode;
+  Category: Category;
+  CategoryIds: CategoryIds;
+  CategoryNodes: CategoryNodes;
+  CategoryPostData: CategoryPostData;
+  CategoryPostNodes: CategoryPostNodes;
   FeaturedImageNode: FeaturedImageNode;
   GotPost: GotPost;
   ID: Scalars['ID'];
   MediaItemUrl: MediaItemUrl;
   Post: Post;
+  PostData: PostData;
   PostPageResponse: PostPageResponse;
-  PostsNode: PostsNode;
+  Posts: Posts;
+  PostsNodes: PostsNodes;
+  PostsPageData: PostsPageData;
   PostsPageResponse: PostsPageResponse;
   Query: {};
   String: Scalars['String'];
@@ -185,6 +254,35 @@ export type CategoriesResolvers<ContextType = any, ParentType extends ResolversP
 
 export type CategoriesNodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoriesNode'] = ResolversParentTypes['CategoriesNode']> = {
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryIdsResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoryIds'] = ResolversParentTypes['CategoryIds']> = {
+  categoryId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryNodesResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoryNodes'] = ResolversParentTypes['CategoryNodes']> = {
+  nodes?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryPostDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoryPostData'] = ResolversParentTypes['CategoryPostData']> = {
+  categoryId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  posts?: Resolver<ResolversTypes['PostsNodes'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryPostNodesResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoryPostNodes'] = ResolversParentTypes['CategoryPostNodes']> = {
+  nodes?: Resolver<Array<ResolversTypes['CategoryPostData']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -218,18 +316,42 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type PostDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostData'] = ResolversParentTypes['PostData']> = {
+  categories?: Resolver<ResolversTypes['CategoryNodes'], ParentType, ContextType>;
+  date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  featuredImage?: Resolver<ResolversTypes['FeaturedImageNode'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type PostPageResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostPageResponse'] = ResolversParentTypes['PostPageResponse']> = {
   post?: Resolver<ResolversTypes['GotPost'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type PostsNodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostsNode'] = ResolversParentTypes['PostsNode']> = {
-  nodes?: Resolver<Array<ResolversTypes['GotPost']>, ParentType, ContextType>;
+export type PostsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Posts'] = ResolversParentTypes['Posts']> = {
+  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
+  date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  mediaItemUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PostsNodesResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostsNodes'] = ResolversParentTypes['PostsNodes']> = {
+  nodes?: Resolver<Array<ResolversTypes['PostData']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PostsPageDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostsPageData'] = ResolversParentTypes['PostsPageData']> = {
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
+  posts?: Resolver<Array<ResolversTypes['Posts']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PostsPageResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostsPageResponse'] = ResolversParentTypes['PostsPageResponse']> = {
-  posts?: Resolver<ResolversTypes['PostsNode'], ParentType, ContextType>;
+  categories?: Resolver<ResolversTypes['CategoryPostNodes'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -241,12 +363,20 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type Resolvers<ContextType = any> = {
   Categories?: CategoriesResolvers<ContextType>;
   CategoriesNode?: CategoriesNodeResolvers<ContextType>;
+  Category?: CategoryResolvers<ContextType>;
+  CategoryIds?: CategoryIdsResolvers<ContextType>;
+  CategoryNodes?: CategoryNodesResolvers<ContextType>;
+  CategoryPostData?: CategoryPostDataResolvers<ContextType>;
+  CategoryPostNodes?: CategoryPostNodesResolvers<ContextType>;
   FeaturedImageNode?: FeaturedImageNodeResolvers<ContextType>;
   GotPost?: GotPostResolvers<ContextType>;
   MediaItemUrl?: MediaItemUrlResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  PostData?: PostDataResolvers<ContextType>;
   PostPageResponse?: PostPageResponseResolvers<ContextType>;
-  PostsNode?: PostsNodeResolvers<ContextType>;
+  Posts?: PostsResolvers<ContextType>;
+  PostsNodes?: PostsNodesResolvers<ContextType>;
+  PostsPageData?: PostsPageDataResolvers<ContextType>;
   PostsPageResponse?: PostsPageResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
