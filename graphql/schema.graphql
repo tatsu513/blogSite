@@ -1,22 +1,24 @@
 type Query {
   # 投稿一覧
-  getPosts: GetPostsResponse!
+  postsPage: postsPageResponse
   # 投稿
-  getPost: GetPostResponse!
+  postPage: postPageResponse!
 }
 
-# ** 投稿一覧 ** #
-type GetPostsResponse {
-  posts: PostsNode!
+# ** WPから返却される値 ** #
+type postsPageResponse {
+  posts: PostsNode
 }
 type PostsNode {
   nodes: [GotPost!]!
 }
-type GetPostResponse {
+
+# ** 投稿 ** #
+type postPageResponse {
   post: GotPost!
 }
 
-# ** WPする取得した値 ** #
+# ** WPから取得した投稿データ ** #
 type GotPost {
   # 投稿ID
   id: ID!
@@ -44,7 +46,7 @@ type MediaItemUrl {
   mediaItemUrl: String!
 }
 
-# ** 投稿 ** #
+# ** Frontend用の投稿データ ** #
 type Post {
   # 投稿ID
   id: ID!

@@ -1,5 +1,5 @@
 const fetchApi = async (query: string, { variables }: any = {}) => {
-  const ApiUrl = String(process.env.NEXT_PUBLIC_WP_GQL);
+  const ApiUrl = String(process.env.WP_GQL);
   const getHeaders = () => {
     const headers = new Headers();
     if (!headers.get('content-type')) {
@@ -29,6 +29,7 @@ const fetchApi = async (query: string, { variables }: any = {}) => {
     console.error(json.errors);
     throw new Error('Failed to fetch API');
   }
+  console.log('おおおおおおお');
   return json.data;
 };
 
