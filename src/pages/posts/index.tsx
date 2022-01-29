@@ -4,6 +4,7 @@ import React from 'react';
 import PostCard from 'components/PostCard';
 import { Post } from 'dao/generated/graphql';
 import postsResolver from 'resolvers/postsResolver';
+import { shadow } from 'shodow';
 
 type Props = {
   posts: Post[];
@@ -14,9 +15,14 @@ const listStyle = {
   padding: 0,
 };
 const menuItemStyle = {
-  padding: '0 40px 0 0',
+  margin: '0 40px 0 0',
+  padding: 0,
+  transition: 'all 400ms ease',
+  '&:hover': {
+    boxShadow: shadow['hover'],
+  },
   '&:nth-child(4n)': {
-    paddingRight: 0,
+    marginRight: 0,
   },
 };
 
@@ -35,45 +41,21 @@ const Index: NextPage<Props> = ({ posts }) => {
             />
           </MenuItem>
         ))}
-        <MenuItem sx={{ ...menuItemStyle }}>
-          <PostCard
-            mediaUrl={
-              'https://tatsu513.com/wp-content/uploads/2021/05/067AME0226_TP_V.jpg'
-            }
-            category={'Money'}
-            date={'2022-01-16T22:44:39'}
-            id={'123'}
-            title={
-              '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０'
-            }
-          />
-        </MenuItem>
-        <MenuItem sx={{ ...menuItemStyle }}>
-          <PostCard
-            mediaUrl={
-              'https://tatsu513.com/wp-content/uploads/2021/05/067AME0226_TP_V.jpg'
-            }
-            category={'Money'}
-            date={'2022-01-16T22:44:39'}
-            id={'123'}
-            title={
-              '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０'
-            }
-          />
-        </MenuItem>
-        <MenuItem sx={{ ...menuItemStyle }}>
-          <PostCard
-            mediaUrl={
-              'https://tatsu513.com/wp-content/uploads/2021/05/067AME0226_TP_V.jpg'
-            }
-            category={'Money'}
-            date={'2022-01-16T22:44:39'}
-            id={'123'}
-            title={
-              '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０'
-            }
-          />
-        </MenuItem>
+        {[...Array(3)].map((a, i) => (
+          <MenuItem sx={{ ...menuItemStyle }} key={i}>
+            <PostCard
+              mediaUrl={
+                'https://tatsu513.com/wp-content/uploads/2021/05/067AME0226_TP_V.jpg'
+              }
+              category={'Money'}
+              date={'2022-01-16T22:44:39'}
+              id={'123'}
+              title={
+                '１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０'
+              }
+            />
+          </MenuItem>
+        ))}
       </List>
     </>
   );

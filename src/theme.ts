@@ -36,6 +36,33 @@ const theme = createTheme({
       secondary: gray[200],
     },
   },
+  shadows: [
+    'none',
+    '0 0 16px 4px rgba(0, 0, 0, 0.2)', // hover
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+    'none',
+  ],
 });
 
 export default theme;
