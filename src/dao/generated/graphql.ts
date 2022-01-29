@@ -31,16 +31,6 @@ export type FeaturedImageNode = {
   node: MediaItemUrl;
 };
 
-export type GetPostResponse = {
-  __typename?: 'GetPostResponse';
-  post: GotPost;
-};
-
-export type GetPostsResponse = {
-  __typename?: 'GetPostsResponse';
-  posts: PostsNode;
-};
-
 export type GotPost = {
   __typename?: 'GotPost';
   categories: Categories;
@@ -73,8 +63,18 @@ export type PostsNode = {
 
 export type Query = {
   __typename?: 'Query';
-  getPost: GetPostResponse;
-  getPosts: GetPostsResponse;
+  postPage: PostPageResponse;
+  postsPage: Array<Post>;
+};
+
+export type PostPageResponse = {
+  __typename?: 'postPageResponse';
+  post: GotPost;
+};
+
+export type PostsPageResponse = {
+  __typename?: 'postsPageResponse';
+  posts: PostsNode;
 };
 
 
@@ -150,8 +150,6 @@ export type ResolversTypes = {
   Categories: ResolverTypeWrapper<Categories>;
   CategoriesNode: ResolverTypeWrapper<CategoriesNode>;
   FeaturedImageNode: ResolverTypeWrapper<FeaturedImageNode>;
-  GetPostResponse: ResolverTypeWrapper<GetPostResponse>;
-  GetPostsResponse: ResolverTypeWrapper<GetPostsResponse>;
   GotPost: ResolverTypeWrapper<GotPost>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   MediaItemUrl: ResolverTypeWrapper<MediaItemUrl>;
@@ -159,6 +157,8 @@ export type ResolversTypes = {
   PostsNode: ResolverTypeWrapper<PostsNode>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  postPageResponse: ResolverTypeWrapper<PostPageResponse>;
+  postsPageResponse: ResolverTypeWrapper<PostsPageResponse>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -167,8 +167,6 @@ export type ResolversParentTypes = {
   Categories: Categories;
   CategoriesNode: CategoriesNode;
   FeaturedImageNode: FeaturedImageNode;
-  GetPostResponse: GetPostResponse;
-  GetPostsResponse: GetPostsResponse;
   GotPost: GotPost;
   ID: Scalars['ID'];
   MediaItemUrl: MediaItemUrl;
@@ -176,6 +174,8 @@ export type ResolversParentTypes = {
   PostsNode: PostsNode;
   Query: {};
   String: Scalars['String'];
+  postPageResponse: PostPageResponse;
+  postsPageResponse: PostsPageResponse;
 };
 
 export type CategoriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['Categories'] = ResolversParentTypes['Categories']> = {
@@ -190,16 +190,6 @@ export type CategoriesNodeResolvers<ContextType = any, ParentType extends Resolv
 
 export type FeaturedImageNodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['FeaturedImageNode'] = ResolversParentTypes['FeaturedImageNode']> = {
   node?: Resolver<ResolversTypes['MediaItemUrl'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type GetPostResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['GetPostResponse'] = ResolversParentTypes['GetPostResponse']> = {
-  post?: Resolver<ResolversTypes['GotPost'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type GetPostsResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['GetPostsResponse'] = ResolversParentTypes['GetPostsResponse']> = {
-  posts?: Resolver<ResolversTypes['PostsNode'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -234,21 +224,31 @@ export type PostsNodeResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getPost?: Resolver<ResolversTypes['GetPostResponse'], ParentType, ContextType>;
-  getPosts?: Resolver<ResolversTypes['GetPostsResponse'], ParentType, ContextType>;
+  postPage?: Resolver<ResolversTypes['postPageResponse'], ParentType, ContextType>;
+  postsPage?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+};
+
+export type PostPageResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['postPageResponse'] = ResolversParentTypes['postPageResponse']> = {
+  post?: Resolver<ResolversTypes['GotPost'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PostsPageResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['postsPageResponse'] = ResolversParentTypes['postsPageResponse']> = {
+  posts?: Resolver<ResolversTypes['PostsNode'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   Categories?: CategoriesResolvers<ContextType>;
   CategoriesNode?: CategoriesNodeResolvers<ContextType>;
   FeaturedImageNode?: FeaturedImageNodeResolvers<ContextType>;
-  GetPostResponse?: GetPostResponseResolvers<ContextType>;
-  GetPostsResponse?: GetPostsResponseResolvers<ContextType>;
   GotPost?: GotPostResolvers<ContextType>;
   MediaItemUrl?: MediaItemUrlResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   PostsNode?: PostsNodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  postPageResponse?: PostPageResponseResolvers<ContextType>;
+  postsPageResponse?: PostsPageResponseResolvers<ContextType>;
 };
 
 
