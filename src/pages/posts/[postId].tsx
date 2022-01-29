@@ -1,7 +1,9 @@
 import { Box, Typography } from '@mui/material';
+import { width } from '@mui/system';
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import React from 'react';
+import PostContent from 'components/PostContent';
 import { Post } from 'dao/generated/graphql';
 import postPageResolver from 'resolvers/postPageResolver';
 
@@ -13,25 +15,36 @@ const containerStyle = {
   margin: '0 auto',
   width: '800px',
 };
+const imageBoxStyle = {
+  height: '470px',
+  width: '100%',
+  margin: '40px 0 54px',
+  overflow: 'hidden',
+  position: 'relative',
+};
 
 const Index: NextPage<Props> = ({ post }) => {
   return (
     <Box sx={{ ...containerStyle }}>
-      <Box display='flex' justifyContent='space-between'>
+      <Box
+        display='flex'
+        justifyContent='space-between'
+        sx={{ marginBottom: '16px' }}
+      >
         <Typography variant='caption'>{post.category}</Typography>
         <Typography variant='caption'>{post.date}</Typography>
       </Box>
-      {/* <div style={{ width: '100%', height: '500px', position: 'relative' }}>
-      <Image
-        src={post.featuredImage.node.mediaItemUrl}
-        alt='アイキャッチ画像'
-        layout='fill'
-        objectFit='contain'
-      />
-      </div> */}
-      {/* <div>{post.date}</div>
-      <div>個別ページ: {post.title}</div>
-      <div dangerouslySetInnerHTML={{ __html: post.content }} /> */}
+      <Typography variant='h1'>{post.title}</Typography>
+      <Box sx={{ ...imageBoxStyle }}>
+        <Image
+          src={post.mediaItemUrl}
+          alt='アイキャッチ画像'
+          layout='fill'
+          objectFit='cover'
+        />
+      </Box>
+      {/* HTMLに変換して表示 */}
+      <PostContent content={post.content} />
     </Box>
   );
 };
