@@ -3,7 +3,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import PostCard from 'components/PostCard';
 import { Post } from 'dao/generated/graphql';
-import getPosts from 'utils/getPosts';
+import postsResolver from 'resolvers/postsResolver';
 
 type Props = {
   posts: Post[];
@@ -82,6 +82,6 @@ const Index: NextPage<Props> = ({ posts }) => {
 export default Index;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const posts = await getPosts();
+  const posts = await postsResolver();
   return { props: { posts } };
 };
