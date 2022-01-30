@@ -69,7 +69,6 @@ export default Index;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const { categories, posts } = await postsPageResolver();
-  const postsData = {};
   return {
     props: {
       postsData: { categories, posts },

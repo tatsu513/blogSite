@@ -1,7 +1,22 @@
 import WordpressDateToString from './converters.ts/WordpressDateToString';
 import { Posts, PostsPageResponse } from 'dao/generated/graphql';
 
-const GraphqlPostsToFrontendPosts = (res: PostsPageResponse): Posts[] => {
+const WordpressPostsToFrontendPosts = (res: PostsPageResponse): Posts[] => {
+  const postsWithCategoryId = res.categories.nodes.flatMap((cn) => {
+    return cn.posts.nodes.map((pn) => {
+      return {
+        categoryId: cn.categoryId,
+        posts: {
+          id: pn.id,
+          title: pn.title,
+          date: WordpressDateToString(pn.date),
+          mediaItemUrl: pn.featuredImage?.node.mediaItemUrl ?? '',
+          category: pn.categories?.nodes[0] ?? { id: '', name: '' },
+        },
+      };
+    });
+  });
+  console.log({ aaa: postsWithCategoryId[0].posts });
   const posts = res.categories.nodes
     .flatMap((node) => node.posts.nodes)
     .map((post) => {
@@ -16,4 +31,4 @@ const GraphqlPostsToFrontendPosts = (res: PostsPageResponse): Posts[] => {
   return posts;
 };
 
-export default GraphqlPostsToFrontendPosts;
+export default WordpressPostsToFrontendPosts;
