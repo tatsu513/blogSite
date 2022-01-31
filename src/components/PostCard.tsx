@@ -1,5 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { ReactNode } from 'react';
+import { shadow } from 'shadow';
 
 type PostCardProps = {
   category: string;
@@ -10,12 +11,22 @@ type PostCardProps = {
 };
 
 const cardContainerStyle = {
-  maxWidth: '306px',
   boxShadow: 'none',
   borderRadius: '0',
+  transition: 'all 400ms ease',
+  '&:hover': {
+    boxShadow: shadow['hover'],
+  },
 };
 const titleBoxStyle = {
   marginTop: '8px',
+};
+const titleStyle = {
+  height: 'calc(24px * 3)',
+  display: '-webkit-box',
+  overflow: 'hidden',
+  '-webkit-line-clamp': '3',
+  '-webkit-box-orient': 'vertical',
 };
 
 const PostCard: React.VFC<PostCardProps> = ({
@@ -39,7 +50,7 @@ const PostCard: React.VFC<PostCardProps> = ({
           <Typography variant='caption'>{date}</Typography>
         </Box>
         <Box sx={{ ...titleBoxStyle }}>
-          <Typography>{title}</Typography>
+          <Typography sx={{ ...titleStyle }}>{title}</Typography>
         </Box>
       </CardContent>
     </Card>

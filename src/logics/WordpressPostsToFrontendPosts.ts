@@ -1,34 +1,28 @@
 import WordpressDateToString from './converters.ts/WordpressDateToString';
-import { Posts, PostsPageResponse } from 'dao/generated/graphql';
+import { PostsPageResponse, PostWithCategoryId } from 'dao/generated/graphql';
 
-const WordpressPostsToFrontendPosts = (res: PostsPageResponse): Posts[] => {
+const WordpressPostsToFrontendPosts = (
+  res: PostsPageResponse,
+): PostWithCategoryId[] => {
   const postsWithCategoryId = res.categories.nodes.flatMap((cn) => {
-    return cn.posts.nodes.map((pn) => {
-      return {
-        categoryId: cn.categoryId,
-        posts: {
-          id: pn.id,
-          title: pn.title,
-          date: WordpressDateToString(pn.date),
-          mediaItemUrl: pn.featuredImage?.node.mediaItemUrl ?? '',
-          category: pn.categories?.nodes[0] ?? { id: '', name: '' },
-        },
-      };
+    const result: PostWithCategoryId = {
+      categoryId: cn.categoryId,
+      posts: [],
+    };
+    const sampleImg =
+      'https://placehold.jp/f0f0f0/ffffff/500x500.png?text=No%20Photo';
+    cn.posts.nodes.map((pn) => {
+      result.posts.push({
+        id: pn.id,
+        title: pn.title,
+        date: WordpressDateToString(pn.date),
+        mediaItemUrl: pn.featuredImage?.node.mediaItemUrl ?? sampleImg,
+        category: pn.categories?.nodes[0] ?? { id: '', name: '' },
+      });
     });
+    return result;
   });
-  console.log({ aaa: postsWithCategoryId[0].posts });
-  const posts = res.categories.nodes
-    .flatMap((node) => node.posts.nodes)
-    .map((post) => {
-      return {
-        id: post.id,
-        title: post.title,
-        date: WordpressDateToString(post.date),
-        mediaItemUrl: post.featuredImage?.node.mediaItemUrl ?? '',
-        category: post.categories?.nodes[0] ?? { id: '', name: '' },
-      };
-    });
-  return posts;
+  return postsWithCategoryId;
 };
 
 export default WordpressPostsToFrontendPosts;

@@ -1,6 +1,6 @@
 type Query {
   # 投稿一覧
-  postsPage: [Post!]!
+  postsPage: [PostWithCategoryId!]!
   # 投稿
   postPage: Post!
 }
@@ -89,11 +89,15 @@ type Post {
 # 記事一覧画面
 type PostsPageData {
   categories: [Category!]!
-  posts: [Posts!]!
+  postsWidthCategoryId: [PostWithCategoryId!]!
 }
 type Category {
   id: ID!
   name: String!
+}
+type PostWithCategoryId {
+  categoryId: ID!
+  posts: [Posts!]!
 }
 type Posts {
   id: ID!

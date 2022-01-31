@@ -32,10 +32,9 @@ const postsPageResolver = async (): Promise<PostsPageData> => {
   }`;
   const result: PostsPageResponse = await fetchApi(query);
   const categories = WordpressPostsPageDataToCategories(result);
-  console.log('おおお');
-  const posts = WordpressPostsToFrontendPosts(result);
+  const postsWidthCategoryId = WordpressPostsToFrontendPosts(result);
 
-  return { categories, posts };
+  return { categories, postsWidthCategoryId };
 };
 
 export default postsPageResolver;

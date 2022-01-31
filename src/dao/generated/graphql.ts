@@ -99,6 +99,12 @@ export type PostPageResponse = {
   post: GotPost;
 };
 
+export type PostWithCategoryId = {
+  __typename?: 'PostWithCategoryId';
+  categoryId: Scalars['ID'];
+  posts: Array<Posts>;
+};
+
 export type Posts = {
   __typename?: 'Posts';
   category: Category;
@@ -116,7 +122,7 @@ export type PostsNodes = {
 export type PostsPageData = {
   __typename?: 'PostsPageData';
   categories: Array<Category>;
-  posts: Array<Posts>;
+  postsWidthCategoryId: Array<PostWithCategoryId>;
 };
 
 export type PostsPageResponse = {
@@ -127,7 +133,7 @@ export type PostsPageResponse = {
 export type Query = {
   __typename?: 'Query';
   postPage: Post;
-  postsPage: Array<Post>;
+  postsPage: Array<PostWithCategoryId>;
 };
 
 
@@ -214,6 +220,7 @@ export type ResolversTypes = {
   Post: ResolverTypeWrapper<Post>;
   PostData: ResolverTypeWrapper<PostData>;
   PostPageResponse: ResolverTypeWrapper<PostPageResponse>;
+  PostWithCategoryId: ResolverTypeWrapper<PostWithCategoryId>;
   Posts: ResolverTypeWrapper<Posts>;
   PostsNodes: ResolverTypeWrapper<PostsNodes>;
   PostsPageData: ResolverTypeWrapper<PostsPageData>;
@@ -239,6 +246,7 @@ export type ResolversParentTypes = {
   Post: Post;
   PostData: PostData;
   PostPageResponse: PostPageResponse;
+  PostWithCategoryId: PostWithCategoryId;
   Posts: Posts;
   PostsNodes: PostsNodes;
   PostsPageData: PostsPageData;
@@ -330,6 +338,12 @@ export type PostPageResponseResolvers<ContextType = any, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type PostWithCategoryIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostWithCategoryId'] = ResolversParentTypes['PostWithCategoryId']> = {
+  categoryId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  posts?: Resolver<Array<ResolversTypes['Posts']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type PostsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Posts'] = ResolversParentTypes['Posts']> = {
   category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -346,7 +360,7 @@ export type PostsNodesResolvers<ContextType = any, ParentType extends ResolversP
 
 export type PostsPageDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostsPageData'] = ResolversParentTypes['PostsPageData']> = {
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
-  posts?: Resolver<Array<ResolversTypes['Posts']>, ParentType, ContextType>;
+  postsWidthCategoryId?: Resolver<Array<ResolversTypes['PostWithCategoryId']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -357,7 +371,7 @@ export type PostsPageResponseResolvers<ContextType = any, ParentType extends Res
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   postPage?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
-  postsPage?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  postsPage?: Resolver<Array<ResolversTypes['PostWithCategoryId']>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
@@ -374,6 +388,7 @@ export type Resolvers<ContextType = any> = {
   Post?: PostResolvers<ContextType>;
   PostData?: PostDataResolvers<ContextType>;
   PostPageResponse?: PostPageResponseResolvers<ContextType>;
+  PostWithCategoryId?: PostWithCategoryIdResolvers<ContextType>;
   Posts?: PostsResolvers<ContextType>;
   PostsNodes?: PostsNodesResolvers<ContextType>;
   PostsPageData?: PostsPageDataResolvers<ContextType>;
