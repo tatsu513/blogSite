@@ -1,18 +1,13 @@
-import { MenuItem, List, Typography, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import PostCard from 'components/PostCard';
 import { PostsPageData } from 'dao/generated/graphql';
 import postsPageResolver from 'resolvers/postsPageResolver';
-import { shadow } from 'shadow';
 
 type Props = {
   postsData: PostsPageData;
-};
-
-const menuItemStyle = {
-  padding: 0,
 };
 
 const Index: NextPage<Props> = ({ postsData }) => {

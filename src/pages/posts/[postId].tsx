@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material';
-import { width } from '@mui/system';
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import React from 'react';

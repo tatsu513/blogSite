@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import useGetPosts from 'hooks/useGetPosts';
 
 const containerStyle = {
   width: '100%',
@@ -9,10 +8,6 @@ const containerStyle = {
 };
 
 const Home: NextPage = () => {
-  const { data, error } = useGetPosts();
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
-
   return (
     <div>
       <Head>
