@@ -13,6 +13,7 @@ type PostCardProps = {
 const cardContainerStyle = {
   boxShadow: 'none',
   borderRadius: '0',
+  cursor: 'pointer',
   transition: 'all 400ms ease',
   '&:hover': {
     boxShadow: shadow['hover'],

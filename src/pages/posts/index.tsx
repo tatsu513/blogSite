@@ -1,8 +1,9 @@
 import { Grid } from '@mui/material';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-import React from 'react';
+import React, { SyntheticEvent, useCallback, useState } from 'react';
 import PostCard from 'components/PostCard';
+import PostsCategorySelector from 'components/posts/PostsCategorySelector';
 import { PostsPageData } from 'dao/generated/graphql';
 import postsPageResolver from 'resolvers/postsPageResolver';
 
@@ -12,8 +13,23 @@ type Props = {
 
 const Index: NextPage<Props> = ({ postsData }) => {
   const { categories, postsWidthCategoryId } = postsData;
+  const [key, setKey] = useState(categories[0].id);
+
+  const handleChangeTab = useCallback(
+    (_event: SyntheticEvent, selectedKey: string) => {
+      console.log({ selectedKey: selectedKey });
+      setKey(selectedKey);
+    },
+    [],
+  );
+
   return (
     <>
+      <PostsCategorySelector
+        categories={categories}
+        tabKey={key}
+        onChange={handleChangeTab}
+      />
       <Grid container justifyContent='flex-start' spacing={5}>
         {postsWidthCategoryId.map((data) =>
           data.posts.map((post) => (
