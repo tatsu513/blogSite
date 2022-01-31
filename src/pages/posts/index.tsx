@@ -5,6 +5,7 @@ import React, { SyntheticEvent, useCallback, useState } from 'react';
 import PostCard from 'components/PostCard';
 import PostsCategorySelector from 'components/posts/PostsCategorySelector';
 import { PostsPageData } from 'dao/generated/graphql';
+import getPostsByCategoryId from 'logics/getPostsByCategoryId';
 import postsPageResolver from 'resolvers/postsPageResolver';
 
 type Props = {
@@ -14,13 +15,15 @@ type Props = {
 const Index: NextPage<Props> = ({ postsData }) => {
   const { categories, postsWidthCategoryId } = postsData;
   const [key, setKey] = useState(categories[0].id);
-
+  const [showPosts, setShowPosts] = useState(
+    getPostsByCategoryId(postsWidthCategoryId, key),
+  );
   const handleChangeTab = useCallback(
     (_event: SyntheticEvent, selectedKey: string) => {
-      console.log({ selectedKey: selectedKey });
       setKey(selectedKey);
+      setShowPosts(getPostsByCategoryId(postsWidthCategoryId, selectedKey));
     },
-    [],
+    [postsWidthCategoryId],
   );
 
   return (
@@ -31,21 +34,19 @@ const Index: NextPage<Props> = ({ postsData }) => {
         onChange={handleChangeTab}
       />
       <Grid container justifyContent='flex-start' spacing={5}>
-        {postsWidthCategoryId.map((data) =>
-          data.posts.map((post) => (
-            <Grid item sm={12} md={6} lg={3} key={post.id}>
-              <Link href={`/posts/${post.id}`} passHref>
-                <PostCard
-                  mediaUrl={post.mediaItemUrl}
-                  category={post.category.name}
-                  date={post.date}
-                  id={post.id}
-                  title={post.title}
-                />
-              </Link>
-            </Grid>
-          )),
-        )}
+        {showPosts.posts.map((post) => (
+          <Grid item sm={12} md={6} lg={3} key={post.id}>
+            <Link href={`/posts/${post.id}`} passHref>
+              <PostCard
+                mediaUrl={post.mediaItemUrl}
+                category={post.category.name}
+                date={post.date}
+                id={post.id}
+                title={post.title}
+              />
+            </Link>
+          </Grid>
+        ))}
       </Grid>
     </>
   );
