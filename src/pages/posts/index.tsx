@@ -1,46 +1,48 @@
 import { Grid } from '@mui/material';
+import PostListCategorySelector from 'components/posts/PostListCategorySelector';
+import getPostListByCategoryId from 'logics/getPostListByCategoryId';
 import { GetServerSideProps, NextPage } from 'next';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import PostCard from 'components/PostCard';
-import PostsCategorySelector from 'components/posts/PostsCategorySelector';
-import { PostsPageData } from 'dao/generated/graphql';
-import getPostsByCategoryId from 'logics/getPostsByCategoryId';
-import postsPageResolver from 'resolvers/postsPageResolver';
+import { PostListPageData } from 'dao/generated/graphql';
+import postListPageResolver from 'resolvers/postListPageResolver';
 
 type Props = {
-  postsData: PostsPageData;
+  postsData: PostListPageData;
 };
 
 const Index: NextPage<Props> = ({ postsData }) => {
-  const { categories, postsWidthCategoryId } = postsData;
+  const { categories, postListWidthCategoryId } = postsData;
   const [key, setKey] = useState(categories[0].id);
-  const [showPosts, setShowPosts] = useState(
-    getPostsByCategoryId(postsWidthCategoryId, key),
+  const [showPostList, setShowPostList] = useState(
+    getPostListByCategoryId(postListWidthCategoryId, key),
   );
   const handleChangeTab = useCallback(
     (_event: SyntheticEvent, selectedKey: string) => {
       setKey(selectedKey);
-      setShowPosts(getPostsByCategoryId(postsWidthCategoryId, selectedKey));
+      setShowPostList(
+        getPostListByCategoryId(postListWidthCategoryId, selectedKey),
+      );
     },
-    [postsWidthCategoryId],
+    [postListWidthCategoryId],
   );
 
   return (
     <>
-      <PostsCategorySelector
+      <PostListCategorySelector
         categories={categories}
         tabKey={key}
         onChange={handleChangeTab}
       />
       <Grid container justifyContent='flex-start' spacing={5}>
-        {showPosts.map((post) => (
-          <Grid item sm={12} md={6} lg={3} key={post.id}>
+        {showPostList.map((p) => (
+          <Grid item sm={12} md={6} lg={3} key={p.id}>
             <PostCard
-              mediaUrl={post.mediaItemUrl}
-              category={post.category.name}
-              date={post.date}
-              id={post.id}
-              title={post.title}
+              mediaUrl={p.mediaItemUrl}
+              category={p.category.name}
+              date={p.date}
+              id={p.id}
+              title={p.title}
             />
           </Grid>
         ))}
@@ -52,10 +54,10 @@ const Index: NextPage<Props> = ({ postsData }) => {
 export default Index;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { categories, postsWidthCategoryId } = await postsPageResolver();
+  const { categories, postListWidthCategoryId } = await postListPageResolver();
   return {
     props: {
-      postsData: { categories, postsWidthCategoryId },
+      postsData: { categories, postListWidthCategoryId },
     },
   };
 };

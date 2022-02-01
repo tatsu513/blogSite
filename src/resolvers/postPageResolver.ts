@@ -1,5 +1,5 @@
 import { Post, PostPageResponse } from 'dao/generated/graphql';
-import GraphqlPostsToFrontendPost from 'logics/GraphqlPostsToFrontendPost';
+import GraphqlPostToFrontendPost from 'logics/GraphqlPostToFrontendPost';
 import fetchApi from 'utils/fetchApi';
 
 const postPageResolver = async (id: string): Promise<Post> => {
@@ -25,7 +25,7 @@ const postPageResolver = async (id: string): Promise<Post> => {
     }`;
   const variables = { id };
   const result: PostPageResponse = await fetchApi(query, { variables });
-  return GraphqlPostsToFrontendPost(result);
+  return GraphqlPostToFrontendPost(result);
 };
 
 export default postPageResolver;

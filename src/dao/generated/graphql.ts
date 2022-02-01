@@ -43,7 +43,7 @@ export type CategoryPostData = {
   __typename?: 'CategoryPostData';
   categoryId: Scalars['ID'];
   name: Scalars['String'];
-  posts: PostsNodes;
+  postList: PostListNodes;
 };
 
 export type CategoryPostNodes = {
@@ -90,6 +90,31 @@ export type PostData = {
   title: Scalars['String'];
 };
 
+export type PostList = {
+  __typename?: 'PostList';
+  category: Category;
+  date: Scalars['String'];
+  id: Scalars['ID'];
+  mediaItemUrl: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type PostListNodes = {
+  __typename?: 'PostListNodes';
+  nodes: Array<PostData>;
+};
+
+export type PostListPageData = {
+  __typename?: 'PostListPageData';
+  categories: Array<Category>;
+  postListWidthCategoryId: Array<PostWithCategoryId>;
+};
+
+export type PostListPageResponse = {
+  __typename?: 'PostListPageResponse';
+  categories: CategoryPostNodes;
+};
+
 export type PostPageResponse = {
   __typename?: 'PostPageResponse';
   post: GotPost;
@@ -98,36 +123,11 @@ export type PostPageResponse = {
 export type PostWithCategoryId = {
   __typename?: 'PostWithCategoryId';
   categoryId: Scalars['ID'];
-  posts: Array<Posts>;
-};
-
-export type Posts = {
-  __typename?: 'Posts';
-  category: Category;
-  date: Scalars['String'];
-  id: Scalars['ID'];
-  mediaItemUrl: Scalars['String'];
-  title: Scalars['String'];
-};
-
-export type PostsNodes = {
-  __typename?: 'PostsNodes';
-  nodes: Array<PostData>;
-};
-
-export type PostsPageData = {
-  __typename?: 'PostsPageData';
-  categories: Array<Category>;
-  postsWidthCategoryId: Array<PostWithCategoryId>;
-};
-
-export type PostsPageResponse = {
-  __typename?: 'PostsPageResponse';
-  categories: CategoryPostNodes;
+  postList: Array<PostList>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  postListPage: Array<PostWithCategoryId>;
   postPage: Post;
-  postsPage: Array<PostWithCategoryId>;
 };

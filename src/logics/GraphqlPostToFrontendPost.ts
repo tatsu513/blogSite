@@ -1,7 +1,7 @@
 import WordpressDateToString from './converters.ts/WordpressDateToString';
 import { Post, PostPageResponse } from 'dao/generated/graphql';
 
-const GraphqlPostsToFrontendPost = (res: PostPageResponse): Post => {
+const GraphqlPostToFrontendPost = (res: PostPageResponse): Post => {
   return {
     id: res.post.id,
     title: res.post.title,
@@ -12,4 +12,4 @@ const GraphqlPostsToFrontendPost = (res: PostPageResponse): Post => {
   };
 };
 
-export default GraphqlPostsToFrontendPost;
+export default GraphqlPostToFrontendPost;

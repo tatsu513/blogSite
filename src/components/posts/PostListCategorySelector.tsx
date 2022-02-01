@@ -3,7 +3,7 @@ import React, { SyntheticEvent } from 'react';
 import { gray, green, white } from 'color';
 import { Category } from 'dao/generated/graphql';
 
-type PostsCategorySelectorProps = {
+type PostListCategorySelectorProps = {
   categories: Category[];
   tabKey: string;
   onChange: (_e: SyntheticEvent, _selectedKey: string) => void;
@@ -16,7 +16,7 @@ const tabStyles = {
   lineHeight: '48px,',
 };
 
-const PostsCategorySelector: React.VFC<PostsCategorySelectorProps> = ({
+const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({
   categories,
   tabKey,
   onChange,
@@ -59,4 +59,4 @@ const PostsCategorySelector: React.VFC<PostsCategorySelectorProps> = ({
   );
 };
 
-export default PostsCategorySelector;
+export default PostListCategorySelector;
