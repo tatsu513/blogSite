@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
 import { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import PostCard from 'components/PostCard';
 import PostsCategorySelector from 'components/posts/PostsCategorySelector';
@@ -34,17 +33,15 @@ const Index: NextPage<Props> = ({ postsData }) => {
         onChange={handleChangeTab}
       />
       <Grid container justifyContent='flex-start' spacing={5}>
-        {showPosts.posts.map((post) => (
+        {showPosts.map((post) => (
           <Grid item sm={12} md={6} lg={3} key={post.id}>
-            <Link href={`/posts/${post.id}`} passHref>
-              <PostCard
-                mediaUrl={post.mediaItemUrl}
-                category={post.category.name}
-                date={post.date}
-                id={post.id}
-                title={post.title}
-              />
-            </Link>
+            <PostCard
+              mediaUrl={post.mediaItemUrl}
+              category={post.category.name}
+              date={post.date}
+              id={post.id}
+              title={post.title}
+            />
           </Grid>
         ))}
       </Grid>

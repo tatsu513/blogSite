@@ -1,4 +1,5 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import { shadow } from 'shadow';
 
@@ -38,23 +39,25 @@ const PostCard: React.VFC<PostCardProps> = ({
   title,
 }) => {
   return (
-    <Card sx={{ ...cardContainerStyle }}>
-      <CardMedia
-        component='img'
-        height='200'
-        image={mediaUrl}
-        alt='アイキャッチ画像'
-      />
-      <CardContent>
-        <Box display='flex' justifyContent='space-between'>
-          <Typography variant='caption'>{category}</Typography>
-          <Typography variant='caption'>{date}</Typography>
-        </Box>
-        <Box sx={{ ...titleBoxStyle }}>
-          <Typography sx={{ ...titleStyle }}>{title}</Typography>
-        </Box>
-      </CardContent>
-    </Card>
+    <Link href={`/posts/${id}`} passHref>
+      <Card sx={{ ...cardContainerStyle }}>
+        <CardMedia
+          component='img'
+          height='200'
+          image={mediaUrl}
+          alt='アイキャッチ画像'
+        />
+        <CardContent>
+          <Box display='flex' justifyContent='space-between'>
+            <Typography variant='caption'>{category}</Typography>
+            <Typography variant='caption'>{date}</Typography>
+          </Box>
+          <Box sx={{ ...titleBoxStyle }}>
+            <Typography sx={{ ...titleStyle }}>{title}</Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };
 

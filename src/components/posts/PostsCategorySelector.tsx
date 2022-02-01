@@ -42,6 +42,11 @@ const PostsCategorySelector: React.VFC<PostsCategorySelectorProps> = ({
         },
       }}
     >
+      <Tab
+        sx={{ ...tabStyles, ...selectedStyle('all') }}
+        value={'all'}
+        label={'All'}
+      />
       {categories.map((category) => (
         <Tab
           key={category.id}
