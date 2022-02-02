@@ -9,6 +9,7 @@ module.exports = {
   },
   images: {
     domains: ['tatsu513.com'],
+    disableStaticImages: true,
   },
   reactStrictMode: true,
 };
