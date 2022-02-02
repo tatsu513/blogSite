@@ -11,13 +11,14 @@ const headerBoxStyle = {
   position: 'relative',
   textAlign: 'center',
 };
-const textBoxStyle = {
+const contentBoxStyle = {
   position: 'absolute',
   top: '50%',
   right: '0px',
   bottom: '0px',
   left: '0px',
   transform: 'translateY(-50%)',
+  color: white,
 };
 const headerTitleStyle = {
   marginTop: '20px',
@@ -44,7 +45,7 @@ const Header = () => {
           layout='fill'
         />
       </Box>
-      <Box sx={{ ...textBoxStyle }}>
+      <Box sx={{ ...contentBoxStyle }}>
         <Logo />
         <Typography sx={{ ...headerTitleStyle }}>
           “50歳からを人生で一番楽しく”
