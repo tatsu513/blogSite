@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material';
-import { fontSize } from '@mui/system';
 import { black, gray, green } from 'color';
 
 const theme = createTheme({
