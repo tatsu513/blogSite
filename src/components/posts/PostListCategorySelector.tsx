@@ -14,6 +14,7 @@ const tabStyles = {
   width: '136px',
   marginRight: '2px',
   lineHeight: '48px,',
+  fontFamily: 'Montserrat, Noto Sans JP, sans-serif',
 };
 
 const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({

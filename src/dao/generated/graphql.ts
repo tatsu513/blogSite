@@ -43,7 +43,7 @@ export type CategoryPostData = {
   __typename?: 'CategoryPostData';
   categoryId: Scalars['ID'];
   name: Scalars['String'];
-  postList: PostListNodes;
+  posts: PostListNodes;
 };
 
 export type CategoryPostNodes = {

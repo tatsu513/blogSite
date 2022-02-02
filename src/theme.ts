@@ -32,6 +32,10 @@ const theme = createTheme({
       fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
       fontWeight: '600',
     },
+    filterButton: {
+      fontSize: '12px',
+      fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
+    },
   },
   palette: {
     text: {
@@ -69,3 +73,21 @@ const theme = createTheme({
 });
 
 export default theme;
+
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    filterButton: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    filterButton?: React.CSSProperties;
+  }
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    filterButton: true;
+  }
+}

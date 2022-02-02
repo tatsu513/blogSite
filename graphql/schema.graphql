@@ -16,7 +16,7 @@ type CategoryPostNodes {
 type CategoryPostData {
   categoryId: ID!
   name: String!
-  postList: PostListNodes!
+  posts: PostListNodes!
 }
 type PostListNodes {
   nodes: [PostData!]!

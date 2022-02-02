@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
-import PostListCategorySelector from 'components/posts/PostListCategorySelector';
-import getPostListByCategoryId from 'logics/getPostListByCategoryId';
 import { GetServerSideProps, NextPage } from 'next';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import PostCard from 'components/PostCard';
+import PostListCategorySelector from 'components/posts/PostListCategorySelector';
 import { PostListPageData } from 'dao/generated/graphql';
+import getPostListByCategoryId from 'logics/getPostListByCategoryId';
 import postListPageResolver from 'resolvers/postListPageResolver';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 
 const Index: NextPage<Props> = ({ postsData }) => {
   const { categories, postListWidthCategoryId } = postsData;
-  const [key, setKey] = useState(categories[0].id);
+  const [key, setKey] = useState('all');
   const [showPostList, setShowPostList] = useState(
     getPostListByCategoryId(postListWidthCategoryId, key),
   );

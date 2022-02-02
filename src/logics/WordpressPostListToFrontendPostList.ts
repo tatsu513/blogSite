@@ -14,7 +14,7 @@ const WordpressPostListToFrontendPostList = (
     };
     const sampleImg =
       'https://placehold.jp/f0f0f0/ffffff/500x500.png?text=No%20Photo';
-    cn.postList.nodes.map((pn) => {
+    cn.posts.nodes.map((pn) => {
       result.postList.push({
         id: pn.id,
         title: pn.title,
