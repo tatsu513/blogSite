@@ -2,6 +2,7 @@ import { Grid } from '@mui/material';
 import { GetServerSideProps, NextPage } from 'next';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import PostCard from 'components/PostCard';
+import ListPost from 'components/posts/ListPost';
 import PostListCategorySelector from 'components/posts/PostListCategorySelector';
 import { PostListPageData } from 'dao/generated/graphql';
 import getPostListByCategoryId from 'logics/getPostListByCategoryId';
@@ -34,19 +35,7 @@ const Index: NextPage<Props> = ({ postsData }) => {
         tabKey={key}
         onChange={handleChangeTab}
       />
-      <Grid container justifyContent='flex-start' spacing={5}>
-        {showPostList.map((p) => (
-          <Grid item sm={12} md={6} lg={3} key={p.id}>
-            <PostCard
-              mediaUrl={p.mediaItemUrl}
-              category={p.category.name}
-              date={p.date}
-              id={p.id}
-              title={p.title}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <ListPost posts={showPostList} />
     </>
   );
 };
