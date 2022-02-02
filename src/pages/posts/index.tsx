@@ -30,11 +30,11 @@ const Index: NextPage<Props> = ({ postsData }) => {
 
   return (
     <>
-      <PostListCategorySelector
+      {/* <PostListCategorySelector
         categories={categories}
         tabKey={key}
         onChange={handleChangeTab}
-      />
+      /> */}
       <ListPost posts={showPostList} />
     </>
   );

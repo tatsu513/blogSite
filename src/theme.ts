@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material';
+import { fontSize } from '@mui/system';
 import { black, gray, green } from 'color';
 
 const theme = createTheme({
@@ -6,6 +7,10 @@ const theme = createTheme({
     fontFamily: ['Noto Sans JP', 'sans-serif'].join(','),
     allVariants: {
       color: black,
+    },
+    section: {
+      fontSize: '32px',
+      fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
     },
     h1: {
       fontSize: '28px',
@@ -77,11 +82,13 @@ export default theme;
 declare module '@mui/material/styles' {
   interface TypographyVariants {
     filterButton: React.CSSProperties;
+    section: React.CSSProperties;
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     filterButton?: React.CSSProperties;
+    section?: React.CSSProperties;
   }
 }
 
@@ -89,5 +96,6 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     filterButton: true;
+    section: true;
   }
 }

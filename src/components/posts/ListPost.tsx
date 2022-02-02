@@ -5,12 +5,14 @@ import { PostList } from 'dao/generated/graphql';
 
 type Props = {
   posts: PostList[];
+  maxNum?: number;
 };
 
-const ListPost: React.VFC<Props> = ({ posts }) => {
+const ListPost: React.VFC<Props> = ({ posts, maxNum }) => {
+  const showPosts = maxNum ? posts.slice(0, maxNum) : posts;
   return (
     <Grid container justifyContent='flex-start' spacing={5}>
-      {posts.map((p) => (
+      {showPosts.map((p) => (
         <Grid item sm={12} md={6} lg={3} key={p.id}>
           <PostCard
             mediaUrl={p.mediaItemUrl}

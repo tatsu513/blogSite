@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
@@ -18,7 +18,9 @@ const Home: NextPage = () => {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Box sx={{ ...containerStyle }}>トップ</Box>
+      <Box sx={{ ...containerStyle }}>
+        <Typography variant='section'>{'New Post'}</Typography>
+      </Box>
     </div>
   );
 };
