@@ -74,9 +74,16 @@ export type HomePostsNode = {
   nodes: Array<ListPost>;
 };
 
+export type ListPageResults = {
+  __typename?: 'ListPageResults';
+  categories: Array<Category>;
+  posts: Array<PostForList>;
+};
+
 export type ListPost = {
   __typename?: 'ListPost';
   categories: CategoryNodes;
+  content: Scalars['String'];
   date: Scalars['String'];
   featuredImage: FeaturedImageNode;
   id: Scalars['String'];
@@ -104,6 +111,15 @@ export type PostData = {
   date: Scalars['String'];
   featuredImage: FeaturedImageNode;
   id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
+export type PostForList = {
+  __typename?: 'PostForList';
+  category: Category;
+  date: Scalars['String'];
+  id: Scalars['ID'];
+  mediaItemUrl: Scalars['String'];
   title: Scalars['String'];
 };
 
@@ -153,7 +169,7 @@ export type Query = {
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', posts: { __typename?: 'HomePostsNode', nodes: Array<{ __typename?: 'ListPost', id: string, title: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'CategoryNodes', nodes: Array<{ __typename?: 'Category', categoryId: string, name: string }> } }> } };
+export type HomePageQuery = { __typename?: 'Query', posts: { __typename?: 'HomePostsNode', nodes: Array<{ __typename?: 'ListPost', id: string, title: string, content: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'CategoryNodes', nodes: Array<{ __typename?: 'Category', categoryId: string, name: string }> } }> } };
 
 
 export const HomePageDocument = gql`
@@ -162,6 +178,7 @@ export const HomePageDocument = gql`
     nodes {
       id
       title
+      content
       date
       featuredImage {
         node {

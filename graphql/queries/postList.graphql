@@ -3,6 +3,7 @@ query homePage {
     nodes {
       id
       title
+      content
       date
       featuredImage {
         node {

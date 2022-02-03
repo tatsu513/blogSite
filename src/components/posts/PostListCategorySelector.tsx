@@ -52,9 +52,9 @@ const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({
     >
       {categories.map((category) => (
         <Tab
-          key={category.id}
-          sx={{ ...tabStyles, ...selectedStyle(category.id) }}
-          value={category.id}
+          key={category.categoryId}
+          sx={{ ...tabStyles, ...selectedStyle(category.categoryId) }}
+          value={category.categoryId}
           label={category.name}
         />
       ))}

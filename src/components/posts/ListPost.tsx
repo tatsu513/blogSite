@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import PostCard from 'components/PostCard';
-import { PostList } from 'dao/generated/graphql';
+import { PostForList } from 'dao/generated/graphql';
 
 type Props = {
-  posts: PostList[];
+  posts: PostForList[];
   maxNum?: number;
 };
 

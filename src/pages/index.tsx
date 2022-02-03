@@ -4,11 +4,9 @@ import Head from 'next/head';
 import { SyntheticEvent, useCallback, useState } from 'react';
 import ListPost from 'components/posts/ListPost';
 import PostListCategorySelector from 'components/posts/PostListCategorySelector';
-import { PostListPageData } from 'dao/generated/graphql';
+import { ListPageResults } from 'dao/generated/graphql';
 import getPostListByCategoryId from 'logics/getPostListByCategoryId';
-import postListPageResolver, {
-  getRecipeResolver,
-} from 'resolvers/postListPageResolver';
+import postListPageResolver from 'resolvers/postListPageResolver';
 
 const containerStyle = {
   width: '100%',
@@ -16,23 +14,24 @@ const containerStyle = {
 };
 
 type Props = {
-  postsData: PostListPageData;
+  data: ListPageResults;
 };
 
-const Home: NextPage<Props> = ({ postsData }) => {
-  const { categories, postListWidthCategoryId } = postsData;
-  const [key, setKey] = useState('all');
-  const allPosts = getPostListByCategoryId(postListWidthCategoryId, 'all');
+const Home: NextPage<Props> = ({ data }) => {
+  const { posts, categories } = data;
+  const [key, setKey] = useState(categories[0].categoryId);
   const [filteringPosts, setFilteringPosts] = useState(
-    getPostListByCategoryId(postListWidthCategoryId, key),
+    getPostListByCategoryId(posts, key),
   );
 
   const handleChangeTab = useCallback(
     (_event: SyntheticEvent, key: string) => {
+      console.log(key, posts);
+      console.log({ categories });
       setKey(key);
-      setFilteringPosts(getPostListByCategoryId(postListWidthCategoryId, key));
+      setFilteringPosts(getPostListByCategoryId(posts, key));
     },
-    [postListWidthCategoryId, setFilteringPosts],
+    [posts, setFilteringPosts],
   );
   return (
     <div>
@@ -46,7 +45,7 @@ const Home: NextPage<Props> = ({ postsData }) => {
       </Head>
       <Box sx={{ ...containerStyle }}>
         <Typography variant='section'>{'New Post'}</Typography>
-        <ListPost posts={allPosts} />
+        <ListPost posts={posts} />
         <Box mt={5} />
         <Typography variant='section'>{'Categories'}</Typography>
         <PostListCategorySelector
@@ -63,12 +62,10 @@ const Home: NextPage<Props> = ({ postsData }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const res = await getRecipeResolver();
-  console.log(res);
-  const { categories, postListWidthCategoryId } = await postListPageResolver();
+  const results = await postListPageResolver();
   return {
     props: {
-      postsData: { categories, postListWidthCategoryId },
+      data: results,
     },
   };
 };

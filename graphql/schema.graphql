@@ -14,6 +14,7 @@ type HomePostsNode {
 type ListPost {
   id: String!
   title: String!
+  content: String!
   date: String!
   featuredImage: FeaturedImageNode!
   categories: CategoryNodes!
@@ -87,7 +88,25 @@ type CategoriesNode {
 }
 
 # ** 画面への返却値 ** #
-# 記事画面
+# 一覧画面のデータ
+type ListPageResults {
+  posts: [PostForList!]!
+  categories: [Category!]!
+}
+# 一覧ポストカード用
+type PostForList {
+  # 投稿ID
+  id: ID!
+  # 投稿タイトル
+  title: String!
+  # 最終更新日
+  date: String!
+  # カテゴリ
+  category: Category!
+  # アイキャッチイメージURL
+  mediaItemUrl: String!
+}
+# 記事表示用
 type Post {
   # 投稿ID
   id: ID!
