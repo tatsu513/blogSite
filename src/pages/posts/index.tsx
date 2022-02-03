@@ -1,28 +1,24 @@
 import { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import ListPost from 'components/posts/ListPost';
-import { PostListPageData } from 'dao/generated/graphql';
-import getPostListByCategoryId from 'logics/getPostListByCategoryId';
+import { ListPageResults } from 'dao/generated/graphql';
 import postListPageResolver from 'resolvers/postListPageResolver';
 
 type Props = {
-  postsData: PostListPageData;
+  data: ListPageResults;
 };
 
-const Index: NextPage<Props> = ({ postsData }) => {
-  const { postListWidthCategoryId } = postsData;
-  const showPostList = getPostListByCategoryId(postListWidthCategoryId, 'all');
-
-  return <ListPost posts={showPostList} />;
+const Index: NextPage<Props> = ({ data }) => {
+  return <ListPost posts={data.posts} />;
 };
 
 export default Index;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { categories, postListWidthCategoryId } = await postListPageResolver();
+  const results = await postListPageResolver();
   return {
     props: {
-      postsData: { categories, postListWidthCategoryId },
+      data: results,
     },
   };
 };
