@@ -13,11 +13,7 @@ const Index: NextPage<Props> = ({ postsData }) => {
   const { postListWidthCategoryId } = postsData;
   const showPostList = getPostListByCategoryId(postListWidthCategoryId, 'all');
 
-  return (
-    <>
-      <ListPost posts={showPostList} />
-    </>
-  );
+  return <ListPost posts={showPostList} />;
 };
 
 export default Index;
