@@ -39,6 +39,19 @@ const theme = createTheme({
       fontWeight: '600',
     },
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          height: '48px',
+          minWidth: '200px',
+          fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
+          fontSize: '16px',
+          transition: 'background 400ms ease',
+        },
+      },
+    },
+  },
   palette: {
     text: {
       primary: black,
