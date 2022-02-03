@@ -8,7 +8,7 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ['tatsu513.com'],
+    domains: ['tatsu513.com', 'placehold.jp'],
     disableStaticImages: true,
   },
   reactStrictMode: true,

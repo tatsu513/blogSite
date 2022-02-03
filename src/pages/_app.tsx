@@ -11,7 +11,7 @@ const containerStyle = {
 };
 const contentStyle = {
   maxWidth: '1440px',
-  margin: '80px auto 0',
+  margin: '80px auto',
   padding: '0 48px',
 };
 

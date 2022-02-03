@@ -2,9 +2,10 @@ import { Box, Typography } from '@mui/material';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { SyntheticEvent, useCallback, useState } from 'react';
+import PrimaryButton from 'components/buttons/PrimaryButton';
 import ListPost from 'components/posts/ListPost';
 import PostListCategorySelector from 'components/posts/PostListCategorySelector';
-import { PostListPageData } from 'dao/generated/graphql';
+import { ListPageResults } from 'dao/generated/graphql';
 import getPostListByCategoryId from 'logics/getPostListByCategoryId';
 import postListPageResolver from 'resolvers/postListPageResolver';
 
@@ -14,45 +15,50 @@ const containerStyle = {
 };
 
 type Props = {
-  postsData: PostListPageData;
+  data: ListPageResults;
 };
 
-const Home: NextPage<Props> = ({ postsData }) => {
-  const { categories, postListWidthCategoryId } = postsData;
-  const [key, setKey] = useState('all');
-  const allPosts = getPostListByCategoryId(postListWidthCategoryId, 'all');
-  const [filteringPosts, setFilteringPosts] = useState(
-    getPostListByCategoryId(postListWidthCategoryId, key),
+const Home: NextPage<Props> = ({ data }) => {
+  const { posts, categories } = data;
+  const [key, setKey] = useState(categories[0].categoryId);
+  const [filteredPosts, setFilteringPosts] = useState(
+    getPostListByCategoryId(posts, key),
   );
 
   const handleChangeTab = useCallback(
     (_event: SyntheticEvent, key: string) => {
       setKey(key);
-      setFilteringPosts(getPostListByCategoryId(postListWidthCategoryId, key));
+      setFilteringPosts(getPostListByCategoryId(posts, key));
     },
-    [postListWidthCategoryId, setFilteringPosts],
+    [posts, setFilteringPosts],
   );
   return (
     <div>
       <Head>
-        <title>after50</title>
+        <title>over50</title>
         <meta
           name='description'
-          content='『50歳以降の人生をより豊かに』にコンセプトにした個人ブログ。'
+          content='“50歳からを人生で一番楽しく” そんな夢を持つ一般人の日々の書き物。'
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Box sx={{ ...containerStyle }}>
         <Typography variant='section'>{'New Post'}</Typography>
-        <ListPost posts={allPosts} />
-        <Box mt={5} />
+        <ListPost posts={posts} />
+        <Box textAlign='center' mt={5}>
+          <PrimaryButton text='MORE' onClick={() => alert('onClick')} />
+        </Box>
+        <Box mt={10} />
         <Typography variant='section'>{'Categories'}</Typography>
         <PostListCategorySelector
           categories={categories}
           tabKey={key}
           onChange={handleChangeTab}
         />
-        <ListPost posts={filteringPosts} />
+        <ListPost posts={filteredPosts} />
+        <Box textAlign='center' mt={5}>
+          <PrimaryButton text='MORE' onClick={() => alert('onClick')} />
+        </Box>
       </Box>
     </div>
   );
@@ -61,10 +67,10 @@ const Home: NextPage<Props> = ({ postsData }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { categories, postListWidthCategoryId } = await postListPageResolver();
+  const results = await postListPageResolver();
   return {
     props: {
-      postsData: { categories, postListWidthCategoryId },
+      data: results,
     },
   };
 };

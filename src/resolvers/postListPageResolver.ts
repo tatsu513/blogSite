@@ -1,40 +1,16 @@
-import WordpressPostListPageDataToCategories from 'logics/WordpressPostListPageDataToCategories';
-import WordpressPostListToFrontendPostList from 'logics/WordpressPostListToFrontendPostList';
-import { PostListPageData, PostListPageResponse } from 'dao/generated/graphql';
-import fetchApi from 'utils/fetchApi';
+import createGraphqlClient from '../utils/createGraphqlClient';
+import { ListPageResults } from 'dao/generated/graphql';
+import { getSdk } from 'dao/generated/graphql';
+import WordpressPostsToPosts from 'logics/WordpressPostsToPosts';
+import getCategoriesByPosts from 'logics/getCategoriesByPosts';
 
-const postListPageResolver = async (): Promise<PostListPageData> => {
-  const query = `{
-    categories {
-      nodes {
-        categoryId
-        name
-        posts {
-          nodes {
-            id
-            title
-            date
-            featuredImage {
-              node {
-                mediaItemUrl
-              }
-            }
-            categories {
-              nodes {
-                categoryId
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  }`;
-  const result: PostListPageResponse = await fetchApi(query);
-  const categories = WordpressPostListPageDataToCategories(result);
-  const postListWidthCategoryId = WordpressPostListToFrontendPostList(result);
+export const postListPageResolver = async (): Promise<ListPageResults> => {
+  const graphqlSdk = getSdk(createGraphqlClient());
+  const response = await graphqlSdk.homePage();
+  const posts = WordpressPostsToPosts(response.posts.nodes);
+  const categories = getCategoriesByPosts(posts);
 
-  return { categories, postListWidthCategoryId };
+  return { posts, categories };
 };
 
 export default postListPageResolver;

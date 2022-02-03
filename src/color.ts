@@ -6,6 +6,7 @@ export const white = '#FFFFFF';
 export const green = {
   100: '#D1EDE8',
   200: '#208B78',
+  400: '#0C6857',
 };
 // サブカラー
 export const orange = {

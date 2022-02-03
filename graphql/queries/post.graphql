@@ -1,0 +1,18 @@
+query postPage($id: ID!) {
+  post(id: $id) {
+    id
+    title
+    content
+    date
+    featuredImage {
+      node {
+        mediaItemUrl
+      }
+    }
+    categories {
+      nodes {
+        name
+      }
+    }
+  }
+}

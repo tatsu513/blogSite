@@ -1,9 +1,12 @@
 overwrite: true
 schema: './graphql/schema.graphql'
+documents:
+  - ./graphql/queries/**/*.graphql
+  # - ./graphql/mutations/**/*.graphql
 generates:
   src/dao/generated/graphql.ts:
     plugins:
       - 'typescript'
+      - 'typescript-operations'
       # - 'typescript-resolvers'
-      # - 'typescript-operations'
-      # - 'typescript-graphql-request'
+      - 'typescript-graphql-request'

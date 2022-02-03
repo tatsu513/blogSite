@@ -1,29 +1,19 @@
 type Query {
-  # 投稿一覧
-  postListPage: [PostWithCategoryId!]!
+  # トップページ
+  posts: HomePostsNode!
   # 投稿
-  postPage: Post!
+  post(id: ID!): WordpressPost!
 }
 
-# ** WPから返却される値 ** #
-# 投稿一覧
-type PostListPageResponse {
-  categories: CategoryPostNodes!
+### WPから返却される値
+# トップ画面
+type HomePostsNode {
+  nodes: [ListPost!]!
 }
-type CategoryPostNodes {
-  nodes: [CategoryPostData!]!
-}
-type CategoryPostData {
-  categoryId: ID!
-  name: String!
-  posts: PostListNodes!
-}
-type PostListNodes {
-  nodes: [PostData!]!
-}
-type PostData {
-  id: ID!
+type ListPost {
+  id: String!
   title: String!
+  content: String!
   date: String!
   featuredImage: FeaturedImageNode!
   categories: CategoryNodes!
@@ -37,18 +27,13 @@ type MediaItemUrl {
 type CategoryNodes {
   nodes: [Category!]!
 }
-type CategoryIds {
+type Category {
   categoryId: ID!
   name: String!
 }
 
-# ** 投稿 ** #
-type PostPageResponse {
-  post: GotPost!
-}
-
-# ** WPから取得した投稿データ ** #
-type GotPost {
+# 投稿
+type WordpressPost {
   # 投稿ID
   id: ID!
   # 投稿タイトル
@@ -69,8 +54,26 @@ type CategoriesNode {
   name: String
 }
 
-# ** 画面への返却値 ** #
-# 記事画面
+### 画面への返却値
+# 一覧画面のデータ
+type ListPageResults {
+  posts: [PostForList!]!
+  categories: [Category!]!
+}
+# 一覧ポストカード用
+type PostForList {
+  # 投稿ID
+  id: ID!
+  # 投稿タイトル
+  title: String!
+  # 最終更新日
+  date: String!
+  # カテゴリ
+  category: Category!
+  # アイキャッチイメージURL
+  mediaItemUrl: String!
+}
+# 記事表示用
 type Post {
   # 投稿ID
   id: ID!
@@ -84,25 +87,4 @@ type Post {
   category: String!
   # アイキャッチイメージURL
   mediaItemUrl: String!
-}
-
-# 記事一覧画面
-type PostListPageData {
-  categories: [Category!]!
-  postListWidthCategoryId: [PostWithCategoryId!]!
-}
-type Category {
-  id: ID!
-  name: String!
-}
-type PostWithCategoryId {
-  categoryId: ID!
-  postList: [PostList!]!
-}
-type PostList {
-  id: ID!
-  title: String!
-  date: String!
-  mediaItemUrl: String!
-  category: Category!
 }
