@@ -2,7 +2,7 @@ type Query {
   # トップページ
   posts: HomePostsNode!
   # 投稿
-  postPage: Post!
+  post(id: ID!): WordpressPost!
 }
 
 ### WPから返却される値
@@ -33,12 +33,7 @@ type Category {
 }
 
 # 投稿
-type PostPageResponse {
-  post: GotPost!
-}
-
-# ** WPから取得した投稿データ ** #
-type GotPost {
+type WordpressPost {
   # 投稿ID
   id: ID!
   # 投稿タイトル

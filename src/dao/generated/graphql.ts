@@ -41,16 +41,6 @@ export type FeaturedImageNode = {
   node: MediaItemUrl;
 };
 
-export type GotPost = {
-  __typename?: 'GotPost';
-  categories: Categories;
-  content: Scalars['String'];
-  date: Scalars['String'];
-  featuredImage: FeaturedImageNode;
-  id: Scalars['ID'];
-  title: Scalars['String'];
-};
-
 export type HomePostsNode = {
   __typename?: 'HomePostsNode';
   nodes: Array<ListPost>;
@@ -96,16 +86,33 @@ export type PostForList = {
   title: Scalars['String'];
 };
 
-export type PostPageResponse = {
-  __typename?: 'PostPageResponse';
-  post: GotPost;
-};
-
 export type Query = {
   __typename?: 'Query';
-  postPage: Post;
+  post: WordpressPost;
   posts: HomePostsNode;
 };
+
+
+export type QueryPostArgs = {
+  id: Scalars['ID'];
+};
+
+export type WordpressPost = {
+  __typename?: 'WordpressPost';
+  categories: Categories;
+  content: Scalars['String'];
+  date: Scalars['String'];
+  featuredImage: FeaturedImageNode;
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
+export type PostPageQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type PostPageQuery = { __typename?: 'Query', post: { __typename?: 'WordpressPost', id: string, title: string, content: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'Categories', nodes: Array<{ __typename?: 'CategoriesNode', name?: string | null | undefined }> } } };
 
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -113,6 +120,26 @@ export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 export type HomePageQuery = { __typename?: 'Query', posts: { __typename?: 'HomePostsNode', nodes: Array<{ __typename?: 'ListPost', id: string, title: string, content: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'CategoryNodes', nodes: Array<{ __typename?: 'Category', categoryId: string, name: string }> } }> } };
 
 
+export const PostPageDocument = gql`
+    query postPage($id: ID!) {
+  post(id: $id) {
+    id
+    title
+    content
+    date
+    featuredImage {
+      node {
+        mediaItemUrl
+      }
+    }
+    categories {
+      nodes {
+        name
+      }
+    }
+  }
+}
+    `;
 export const HomePageDocument = gql`
     query homePage {
   posts {
@@ -144,6 +171,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    postPage(variables: PostPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PostPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PostPageQuery>(PostPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'postPage');
+    },
     homePage(variables?: HomePageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HomePageQuery>(HomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'homePage');
     }

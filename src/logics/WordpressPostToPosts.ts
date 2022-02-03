@@ -1,19 +1,17 @@
 import WordpressDateToString from './converters.ts/WordpressDateToString';
-import { ListPost, PostForList } from 'dao/generated/graphql';
+import { Post, WordpressPost } from 'dao/generated/graphql';
 
-const WordpressPostToPosts = (posts: ListPost[]): PostForList[] => {
+const WordpressPostToPosts = (wp: WordpressPost): Post => {
   const sampleImg =
-    'https://placehold.jp/f0f0f0/ffffff/500x500.png?text=No%20Photo';
-  const frontendPosts = posts.map((p) => {
-    return {
-      id: p.id,
-      title: p.title,
-      date: WordpressDateToString(p.date),
-      mediaItemUrl: p.featuredImage?.node.mediaItemUrl ?? sampleImg,
-      category: p.categories.nodes[0],
-    };
-  });
-  return frontendPosts;
+    'https://placehold.jp/3d4070/ffffff/800x800.png?text=No%20Photo';
+  return {
+    id: wp.id,
+    title: wp.title,
+    content: wp.content,
+    date: WordpressDateToString(wp.date),
+    mediaItemUrl: wp.featuredImage?.node.mediaItemUrl ?? sampleImg,
+    category: wp.categories.nodes[0]?.name ?? '',
+  };
 };
 
 export default WordpressPostToPosts;
