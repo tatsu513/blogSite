@@ -8,7 +8,9 @@ export const green = {
   200: '#208B78',
 };
 // サブカラー
-export const pink = {};
+export const orange = {
+  200: '#CB8319',
+};
 // 灰色
 export const gray = {
   100: '#DCDCDC',

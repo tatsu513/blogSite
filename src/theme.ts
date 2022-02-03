@@ -8,6 +8,8 @@ const theme = createTheme({
       color: black,
     },
     section: {
+      display: 'block',
+      marginBottom: '24px',
       fontSize: '32px',
       fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
     },
@@ -35,10 +37,6 @@ const theme = createTheme({
       fontSize: '12px',
       fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
       fontWeight: '600',
-    },
-    filterButton: {
-      fontSize: '12px',
-      fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
     },
   },
   palette: {
@@ -80,13 +78,11 @@ export default theme;
 
 declare module '@mui/material/styles' {
   interface TypographyVariants {
-    filterButton: React.CSSProperties;
     section: React.CSSProperties;
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
-    filterButton?: React.CSSProperties;
     section?: React.CSSProperties;
   }
 }
@@ -94,7 +90,6 @@ declare module '@mui/material/styles' {
 // Update the Typography's variant prop options
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    filterButton: true;
     section: true;
   }
 }
