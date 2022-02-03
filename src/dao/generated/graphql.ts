@@ -1,3 +1,6 @@
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -24,7 +27,7 @@ export type CategoriesNode = {
 
 export type Category = {
   __typename?: 'Category';
-  id: Scalars['ID'];
+  categoryId: Scalars['ID'];
   name: Scalars['String'];
 };
 
@@ -63,6 +66,20 @@ export type GotPost = {
   date: Scalars['String'];
   featuredImage: FeaturedImageNode;
   id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
+export type HomePostsNode = {
+  __typename?: 'HomePostsNode';
+  nodes: Array<ListPost>;
+};
+
+export type ListPost = {
+  __typename?: 'ListPost';
+  categories: CategoryNodes;
+  date: Scalars['String'];
+  featuredImage: FeaturedImageNode;
+  id: Scalars['String'];
   title: Scalars['String'];
 };
 
@@ -130,4 +147,48 @@ export type Query = {
   __typename?: 'Query';
   postListPage: Array<PostWithCategoryId>;
   postPage: Post;
+  posts: HomePostsNode;
 };
+
+export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomePageQuery = { __typename?: 'Query', posts: { __typename?: 'HomePostsNode', nodes: Array<{ __typename?: 'ListPost', id: string, title: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'CategoryNodes', nodes: Array<{ __typename?: 'Category', categoryId: string, name: string }> } }> } };
+
+
+export const HomePageDocument = gql`
+    query homePage {
+  posts {
+    nodes {
+      id
+      title
+      date
+      featuredImage {
+        node {
+          mediaItemUrl
+        }
+      }
+      categories {
+        nodes {
+          categoryId
+          name
+        }
+      }
+    }
+  }
+}
+    `;
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    homePage(variables?: HomePageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomePageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<HomePageQuery>(HomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'homePage');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

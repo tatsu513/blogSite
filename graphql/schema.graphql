@@ -1,4 +1,6 @@
 type Query {
+  # トップページ
+  posts: HomePostsNode!
   # 投稿一覧
   postListPage: [PostWithCategoryId!]!
   # 投稿
@@ -6,6 +8,30 @@ type Query {
 }
 
 # ** WPから返却される値 ** #
+type HomePostsNode {
+  nodes: [ListPost!]!
+}
+type ListPost {
+  id: String!
+  title: String!
+  date: String!
+  featuredImage: FeaturedImageNode!
+  categories: CategoryNodes!
+}
+type FeaturedImageNode {
+  node: MediaItemUrl!
+}
+type MediaItemUrl {
+  mediaItemUrl: String!
+}
+type CategoryNodes {
+  nodes: [Category!]!
+}
+type Category {
+  categoryId: ID!
+  name: String!
+}
+
 # 投稿一覧
 type PostListPageResponse {
   categories: CategoryPostNodes!
@@ -27,15 +53,6 @@ type PostData {
   date: String!
   featuredImage: FeaturedImageNode!
   categories: CategoryNodes!
-}
-type FeaturedImageNode {
-  node: MediaItemUrl!
-}
-type MediaItemUrl {
-  mediaItemUrl: String!
-}
-type CategoryNodes {
-  nodes: [Category!]!
 }
 type CategoryIds {
   categoryId: ID!
@@ -91,10 +108,7 @@ type PostListPageData {
   categories: [Category!]!
   postListWidthCategoryId: [PostWithCategoryId!]!
 }
-type Category {
-  id: ID!
-  name: String!
-}
+
 type PostWithCategoryId {
   categoryId: ID!
   postList: [PostList!]!

@@ -1,0 +1,20 @@
+query homePage {
+  posts {
+    nodes {
+      id
+      title
+      date
+      featuredImage {
+        node {
+          mediaItemUrl
+        }
+      }
+      categories {
+        nodes {
+          categoryId
+          name
+        }
+      }
+    }
+  }
+}

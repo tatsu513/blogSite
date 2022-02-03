@@ -6,7 +6,9 @@ import ListPost from 'components/posts/ListPost';
 import PostListCategorySelector from 'components/posts/PostListCategorySelector';
 import { PostListPageData } from 'dao/generated/graphql';
 import getPostListByCategoryId from 'logics/getPostListByCategoryId';
-import postListPageResolver from 'resolvers/postListPageResolver';
+import postListPageResolver, {
+  getRecipeResolver,
+} from 'resolvers/postListPageResolver';
 
 const containerStyle = {
   width: '100%',
@@ -61,6 +63,8 @@ const Home: NextPage<Props> = ({ postsData }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const res = await getRecipeResolver();
+  console.log(res);
   const { categories, postListWidthCategoryId } = await postListPageResolver();
   return {
     props: {

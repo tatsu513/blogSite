@@ -1,7 +1,19 @@
+import { GraphQLClient } from 'graphql-request';
+import createGraphqlClient from '../utils/createGraphqlClient';
+import { PostListPageData, PostListPageResponse } from 'dao/generated/graphql';
+import { getSdk } from 'dao/generated/graphql';
 import WordpressPostListPageDataToCategories from 'logics/WordpressPostListPageDataToCategories';
 import WordpressPostListToFrontendPostList from 'logics/WordpressPostListToFrontendPostList';
-import { PostListPageData, PostListPageResponse } from 'dao/generated/graphql';
 import fetchApi from 'utils/fetchApi';
+
+export const getRecipeResolver = async () => {
+  const graphqlSdk = getSdk(createGraphqlClient());
+  const response = await graphqlSdk.homePage();
+  const posts = response.posts;
+  const categories = getCategoriesByPosts(posts);
+
+  return response.posts;
+};
 
 const postListPageResolver = async (): Promise<PostListPageData> => {
   const query = `{
