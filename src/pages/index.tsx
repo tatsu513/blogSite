@@ -26,8 +26,6 @@ const Home: NextPage<Props> = ({ data }) => {
 
   const handleChangeTab = useCallback(
     (_event: SyntheticEvent, key: string) => {
-      console.log(key, posts);
-      console.log({ categories });
       setKey(key);
       setFilteringPosts(getPostListByCategoryId(posts, key));
     },
