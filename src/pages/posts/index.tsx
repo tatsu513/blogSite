@@ -1,9 +1,6 @@
-import { Grid } from '@mui/material';
 import { GetServerSideProps, NextPage } from 'next';
-import React, { SyntheticEvent, useCallback, useState } from 'react';
-import PostCard from 'components/PostCard';
+import React from 'react';
 import ListPost from 'components/posts/ListPost';
-import PostListCategorySelector from 'components/posts/PostListCategorySelector';
 import { PostListPageData } from 'dao/generated/graphql';
 import getPostListByCategoryId from 'logics/getPostListByCategoryId';
 import postListPageResolver from 'resolvers/postListPageResolver';
@@ -13,28 +10,11 @@ type Props = {
 };
 
 const Index: NextPage<Props> = ({ postsData }) => {
-  const { categories, postListWidthCategoryId } = postsData;
-  const [key, setKey] = useState('all');
-  const [showPostList, setShowPostList] = useState(
-    getPostListByCategoryId(postListWidthCategoryId, key),
-  );
-  const handleChangeTab = useCallback(
-    (_event: SyntheticEvent, selectedKey: string) => {
-      setKey(selectedKey);
-      setShowPostList(
-        getPostListByCategoryId(postListWidthCategoryId, selectedKey),
-      );
-    },
-    [postListWidthCategoryId],
-  );
+  const { postListWidthCategoryId } = postsData;
+  const showPostList = getPostListByCategoryId(postListWidthCategoryId, 'all');
 
   return (
     <>
-      {/* <PostListCategorySelector
-        categories={categories}
-        tabKey={key}
-        onChange={handleChangeTab}
-      /> */}
       <ListPost posts={showPostList} />
     </>
   );
