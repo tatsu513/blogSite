@@ -1,22 +1,53 @@
 type Query {
   # 投稿一覧
-  getPosts: GetPostsResponse!
+  postListPage: [PostWithCategoryId!]!
   # 投稿
-  getPost: GetPostResponse!
+  postPage: Post!
 }
 
-# ** 投稿一覧 ** #
-type GetPostsResponse {
-  posts: PostsNode!
+# ** WPから返却される値 ** #
+# 投稿一覧
+type PostListPageResponse {
+  categories: CategoryPostNodes!
 }
-type PostsNode {
-  nodes: [GotPost!]!
+type CategoryPostNodes {
+  nodes: [CategoryPostData!]!
 }
-type GetPostResponse {
+type CategoryPostData {
+  categoryId: ID!
+  name: String!
+  posts: PostListNodes!
+}
+type PostListNodes {
+  nodes: [PostData!]!
+}
+type PostData {
+  id: ID!
+  title: String!
+  date: String!
+  featuredImage: FeaturedImageNode!
+  categories: CategoryNodes!
+}
+type FeaturedImageNode {
+  node: MediaItemUrl!
+}
+type MediaItemUrl {
+  mediaItemUrl: String!
+}
+type CategoryNodes {
+  nodes: [Category!]!
+}
+type CategoryIds {
+  categoryId: ID!
+  name: String!
+}
+
+# ** 投稿 ** #
+type PostPageResponse {
   post: GotPost!
 }
 
-# ** WPする取得した値 ** #
+# ** WPから取得した投稿データ ** #
 type GotPost {
   # 投稿ID
   id: ID!
@@ -37,14 +68,9 @@ type Categories {
 type CategoriesNode {
   name: String
 }
-type FeaturedImageNode {
-  node: MediaItemUrl!
-}
-type MediaItemUrl {
-  mediaItemUrl: String!
-}
 
-# ** 投稿 ** #
+# ** 画面への返却値 ** #
+# 記事画面
 type Post {
   # 投稿ID
   id: ID!
@@ -58,4 +84,25 @@ type Post {
   category: String!
   # アイキャッチイメージURL
   mediaItemUrl: String!
+}
+
+# 記事一覧画面
+type PostListPageData {
+  categories: [Category!]!
+  postListWidthCategoryId: [PostWithCategoryId!]!
+}
+type Category {
+  id: ID!
+  name: String!
+}
+type PostWithCategoryId {
+  categoryId: ID!
+  postList: [PostList!]!
+}
+type PostList {
+  id: ID!
+  title: String!
+  date: String!
+  mediaItemUrl: String!
+  category: Category!
 }

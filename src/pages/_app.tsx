@@ -1,4 +1,5 @@
 import '../styles/reset.scss';
+import '../styles/post.scss';
 import { Box, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import theme from '../theme';
