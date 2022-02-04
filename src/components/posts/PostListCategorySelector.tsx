@@ -5,6 +5,7 @@ import { Category } from 'dao/generated/graphql';
 
 type PostListCategorySelectorProps = {
   categories: Category[];
+  hasAll?: boolean;
   tabKey: number;
   onChange: (_e: SyntheticEvent, tabKey: number) => void;
 };
@@ -26,6 +27,7 @@ const tabStyles = {
 
 const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({
   categories,
+  hasAll,
   tabKey,
   onChange,
 }) => {
@@ -50,6 +52,14 @@ const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({
         },
       }}
     >
+      {hasAll && (
+        <Tab
+          key={0}
+          sx={{ ...tabStyles, ...selectedStyle(0) }}
+          value={0}
+          label={'All'}
+        />
+      )}
       {categories.map((category) => (
         <Tab
           key={category.categoryId}

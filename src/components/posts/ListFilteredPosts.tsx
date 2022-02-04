@@ -5,6 +5,7 @@ import { Category, PostForList } from 'dao/generated/graphql';
 
 type ListFilteredPostsProps = {
   categories: Category[];
+  hasAll?: boolean;
   selectedTabKey: number;
   posts: PostForList[];
   onChange: (_e: SyntheticEvent, tabKey: number) => void;
@@ -12,6 +13,7 @@ type ListFilteredPostsProps = {
 
 const ListFilteredPosts: React.VFC<ListFilteredPostsProps> = ({
   categories,
+  hasAll,
   selectedTabKey,
   posts,
   onChange,
@@ -20,6 +22,7 @@ const ListFilteredPosts: React.VFC<ListFilteredPostsProps> = ({
     <>
       <PostListCategorySelector
         categories={categories}
+        hasAll={hasAll}
         tabKey={selectedTabKey}
         onChange={onChange}
       />

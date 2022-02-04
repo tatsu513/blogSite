@@ -7,13 +7,13 @@ import postListPageResolver from 'resolvers/postListPageResolver';
 
 type Props = {
   data: ListPageResults;
+  initialCategoryId: number;
 };
 
-const Index: NextPage<Props> = ({ data }) => {
+const Index: NextPage<Props> = ({ data, initialCategoryId }) => {
   const { posts, categories } = data;
-  const [selectedTabKey, setSelectedTabKey] = useState(
-    categories[0].categoryId,
-  );
+  console.log({ initialCategoryId });
+  const [selectedTabKey, setSelectedTabKey] = useState(initialCategoryId);
   const [filteredPosts, setFilteringPosts] = useState(
     getPostListByCategoryId(posts, selectedTabKey),
   );
@@ -29,6 +29,7 @@ const Index: NextPage<Props> = ({ data }) => {
   return (
     <ListFilteredPosts
       categories={categories}
+      hasAll={true}
       selectedTabKey={selectedTabKey}
       posts={filteredPosts}
       onChange={handleChangeSelectedTab}
@@ -38,11 +39,13 @@ const Index: NextPage<Props> = ({ data }) => {
 
 export default Index;
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+  const initialCategoryId = ctx.query.category ? Number(ctx.query.category) : 0;
   const results = await postListPageResolver();
   return {
     props: {
       data: results,
+      initialCategoryId,
     },
   };
 };

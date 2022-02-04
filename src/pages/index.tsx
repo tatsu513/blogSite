@@ -24,7 +24,6 @@ const Home: NextPage<Props> = ({ data }) => {
   const [selectedTabKey, setSelectedTabKey] = useState(
     categories[0].categoryId,
   );
-  console.log({ selectedTabKey });
   const [filteredPosts, setFilteringPosts] = useState(
     getPostListByCategoryId(posts, selectedTabKey),
   );
@@ -64,7 +63,15 @@ const Home: NextPage<Props> = ({ data }) => {
           onChange={handleChangeSelectedTab}
         />
         <Box textAlign='center' mt={5}>
-          <PrimaryButton text='MORE' onClick={() => alert('onClick')} />
+          <Link
+            href={{
+              pathname: '/posts/',
+              query: { category: selectedTabKey },
+            }}
+            passHref
+          >
+            <PrimaryButton text='MORE' />
+          </Link>
         </Box>
       </Box>
     </div>
