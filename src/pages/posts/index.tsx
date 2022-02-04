@@ -1,10 +1,13 @@
+import { Search } from '@mui/icons-material/';
 import { Box, TextField, Typography } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { GetServerSideProps, NextPage } from 'next';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import { gray } from 'color';
 import ListFilteredPosts from 'components/posts/ListFilteredPosts';
 import { ListPageResults } from 'dao/generated/graphql';
 import getPostListByCategoryId from 'logics/getPostListByCategoryId';
+import getSearchedPosts from 'logics/getSearchedPosts';
 import postListPageResolver from 'resolvers/postListPageResolver';
 
 type Props = {
@@ -12,6 +15,7 @@ type Props = {
   initialCategoryId: number;
 };
 const TextFieldStyle = {
+  width: 'calc(100% - 44px)',
   fontSize: '12px',
   '&::placeholder': {
     fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
@@ -21,7 +25,7 @@ const TextFieldStyle = {
 
 const Index: NextPage<Props> = ({ data, initialCategoryId }) => {
   const { posts, categories } = data;
-  console.log({ initialCategoryId });
+  const [searchValue, setSearchValue] = useState('');
   const [selectedTabKey, setSelectedTabKey] = useState(initialCategoryId);
   const [filteredPosts, setFilteringPosts] = useState(
     getPostListByCategoryId(posts, selectedTabKey),
@@ -34,28 +38,59 @@ const Index: NextPage<Props> = ({ data, initialCategoryId }) => {
     },
     [posts, setFilteringPosts],
   );
+  const handleSearchInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchValue(e.target.value);
+    },
+    [setSearchValue],
+  );
+  const searchPosts = useCallback(() => {
+    setFilteringPosts(getSearchedPosts(filteredPosts, searchValue));
+  }, [filteredPosts, searchValue]);
 
   return (
     <>
-      <Box display='flex' justifyContent='space-between'>
+      <Box display='flex' justifyContent='space-between' alignItems='start'>
         <Typography variant='section'>{'Posts'}</Typography>
-        <TextField
-          sx={{ ...TextFieldStyle }}
-          label='Search Title'
-          variant='outlined'
-          size='small'
-          InputLabelProps={{
-            sx: {
-              color: gray[200],
-              fontWeight: 300,
-            },
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: '320px',
           }}
-          InputProps={{
-            style: {
-              padding: 0,
-            },
-          }}
-        />
+          display='flex'
+          alignItems='center'
+          justifyContent='end'
+        >
+          <TextField
+            sx={{ ...TextFieldStyle }}
+            value={searchValue}
+            label='タイトルを検索'
+            variant='outlined'
+            size='small'
+            onChange={handleSearchInput}
+            InputLabelProps={{
+              sx: {
+                color: gray[200],
+                fontWeight: 300,
+                fontSize: '14px',
+              },
+            }}
+            InputProps={{
+              style: {
+                padding: 0,
+                fontWeight: 300,
+                fontSize: '14px',
+              },
+            }}
+          />
+          <IconButton
+            aria-label='search'
+            sx={{ marginLeft: '4px' }}
+            onClick={searchPosts}
+          >
+            <Search />
+          </IconButton>
+        </Box>
       </Box>
       <ListFilteredPosts
         categories={categories}
