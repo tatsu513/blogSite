@@ -1,8 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import ListFilteredPosts from 'components/posts/ListFilteredPosts';
-import ListPost from 'components/posts/ListPost';
-import PostListCategorySelector from 'components/posts/PostListCategorySelector';
 import { ListPageResults } from 'dao/generated/graphql';
 import getPostListByCategoryId from 'logics/getPostListByCategoryId';
 import postListPageResolver from 'resolvers/postListPageResolver';
