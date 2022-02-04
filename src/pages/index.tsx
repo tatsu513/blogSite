@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { SyntheticEvent, useCallback, useState } from 'react';
-import PrimaryButton from 'components/buttons/PrimaryButton';
+import OutlineButton from 'components/buttons/OutlineButton';
 import ListFilteredPosts from 'components/posts/ListFilteredPosts';
 import ListPost from 'components/posts/ListPost';
 import { ListPageResults } from 'dao/generated/graphql';
@@ -51,7 +51,7 @@ const Home: NextPage<Props> = ({ data }) => {
         <ListPost posts={posts} />
         <Box textAlign='center' mt={5}>
           <Link href='/posts/' passHref>
-            <PrimaryButton text='MORE' />
+            <OutlineButton text='MORE' />
           </Link>
         </Box>
         <Box mt={10} />
@@ -70,7 +70,7 @@ const Home: NextPage<Props> = ({ data }) => {
             }}
             passHref
           >
-            <PrimaryButton text='MORE' />
+            <OutlineButton text='MORE' />
           </Link>
         </Box>
       </Box>

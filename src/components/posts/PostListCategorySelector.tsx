@@ -1,6 +1,6 @@
 import { Tab, Tabs } from '@mui/material';
 import React, { SyntheticEvent } from 'react';
-import { gray, orange, white } from 'color';
+import { gray, green, white } from 'color';
 import { Category } from 'dao/generated/graphql';
 
 type PostListCategorySelectorProps = {
@@ -34,7 +34,7 @@ const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({
   const selectedStyle = (key: number) => {
     const isSelected = key === tabKey;
     return {
-      backgroundColor: isSelected ? orange[200] : gray[100],
+      backgroundColor: isSelected ? green[200] : gray[100],
       '&.MuiTab-root': {
         color: isSelected ? white : gray[300],
         position: 'relative',
