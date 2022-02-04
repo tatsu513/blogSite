@@ -2,7 +2,7 @@ import { PostForList } from 'dao/generated/graphql';
 
 const getPostListByCategoryId = (
   posts: PostForList[],
-  categoryId: string,
+  categoryId: number,
 ): PostForList[] => {
   return posts.filter((p) => p.category.categoryId === categoryId);
 };

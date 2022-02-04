@@ -5,8 +5,8 @@ import { Category } from 'dao/generated/graphql';
 
 type PostListCategorySelectorProps = {
   categories: Category[];
-  tabKey: string;
-  onChange: (_e: SyntheticEvent, _selectedKey: string) => void;
+  tabKey: number;
+  onChange: (_e: SyntheticEvent, tabKey: number) => void;
 };
 const tabsStyle = {
   marginBottom: '26px',
@@ -29,7 +29,7 @@ const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({
   tabKey,
   onChange,
 }) => {
-  const selectedStyle = (key: string) => {
+  const selectedStyle = (key: number) => {
     const isSelected = key === tabKey;
     return {
       backgroundColor: isSelected ? orange[200] : gray[100],

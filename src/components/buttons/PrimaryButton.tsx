@@ -4,7 +4,7 @@ import { green } from 'color';
 
 type PrimaryButtonProps = {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const buttonStyle = {
