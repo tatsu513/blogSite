@@ -27,7 +27,7 @@ export type CategoriesNode = {
 
 export type Category = {
   __typename?: 'Category';
-  categoryId: Scalars['ID'];
+  categoryId: Scalars['Int'];
   name: Scalars['String'];
 };
 
@@ -117,7 +117,7 @@ export type PostPageQuery = { __typename?: 'Query', post: { __typename?: 'Wordpr
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', posts: { __typename?: 'HomePostsNode', nodes: Array<{ __typename?: 'ListPost', id: string, title: string, content: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'CategoryNodes', nodes: Array<{ __typename?: 'Category', categoryId: string, name: string }> } }> } };
+export type HomePageQuery = { __typename?: 'Query', posts: { __typename?: 'HomePostsNode', nodes: Array<{ __typename?: 'ListPost', id: string, title: string, content: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'CategoryNodes', nodes: Array<{ __typename?: 'Category', categoryId: number, name: string }> } }> } };
 
 
 export const PostPageDocument = gql`

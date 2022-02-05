@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import { black, gray, green } from 'color';
+import { black, gray, green, orange, white } from 'color';
 
 const theme = createTheme({
   typography: {
@@ -49,10 +49,26 @@ const theme = createTheme({
           fontSize: '16px',
           transition: 'background 400ms ease',
         },
+        outlined: {
+          height: '48px',
+          minWidth: '200px',
+          fontFamily: ['Montserrat', 'Noto Sans JP', 'sans-serif'].join(','),
+          transition: 'all 400ms ease',
+        },
       },
     },
   },
   palette: {
+    primary: {
+      light: green[100],
+      main: green[200],
+    },
+    secondary: {
+      main: orange[200],
+    },
+    error: {
+      main: orange[200],
+    },
     text: {
       primary: black,
       secondary: gray[200],

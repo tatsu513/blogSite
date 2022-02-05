@@ -28,7 +28,7 @@ type CategoryNodes {
   nodes: [Category!]!
 }
 type Category {
-  categoryId: ID!
+  categoryId: Int!
   name: String!
 }
 

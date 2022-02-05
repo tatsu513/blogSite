@@ -1,12 +1,13 @@
 import { Tab, Tabs } from '@mui/material';
 import React, { SyntheticEvent } from 'react';
-import { gray, orange, white } from 'color';
+import { gray, green, white } from 'color';
 import { Category } from 'dao/generated/graphql';
 
 type PostListCategorySelectorProps = {
   categories: Category[];
-  tabKey: string;
-  onChange: (_e: SyntheticEvent, _selectedKey: string) => void;
+  hasAll?: boolean;
+  tabKey: number;
+  onChange: (_e: SyntheticEvent, tabKey: number) => void;
 };
 const tabsStyle = {
   marginBottom: '26px',
@@ -26,13 +27,14 @@ const tabStyles = {
 
 const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({
   categories,
+  hasAll,
   tabKey,
   onChange,
 }) => {
-  const selectedStyle = (key: string) => {
+  const selectedStyle = (key: number) => {
     const isSelected = key === tabKey;
     return {
-      backgroundColor: isSelected ? orange[200] : gray[100],
+      backgroundColor: isSelected ? green[200] : gray[100],
       '&.MuiTab-root': {
         color: isSelected ? white : gray[300],
         position: 'relative',
@@ -50,6 +52,14 @@ const PostListCategorySelector: React.VFC<PostListCategorySelectorProps> = ({
         },
       }}
     >
+      {hasAll && (
+        <Tab
+          key={0}
+          sx={{ ...tabStyles, ...selectedStyle(0) }}
+          value={0}
+          label={'All'}
+        />
+      )}
       {categories.map((category) => (
         <Tab
           key={category.categoryId}
