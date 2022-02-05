@@ -26,7 +26,6 @@ const titleStyle = {
 };
 
 const Index: NextPage<Props> = ({ post }) => {
-  console.log({ post });
   return (
     <Box sx={{ ...containerStyle }}>
       <Box
