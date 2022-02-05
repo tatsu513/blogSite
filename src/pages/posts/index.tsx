@@ -34,9 +34,10 @@ const Index: NextPage<Props> = ({ data, initialCategoryId }) => {
   const handleChangeSelectedTab = useCallback(
     (_event: SyntheticEvent, tabKey: number) => {
       setSelectedTabKey(tabKey);
+      setSearchValue('');
       setFilteringPosts(getPostListByCategoryId(posts, tabKey));
     },
-    [posts, setFilteringPosts],
+    [posts, setFilteringPosts, setSearchValue],
   );
   const handleSearchInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
