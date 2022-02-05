@@ -5,7 +5,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import { gray } from 'color';
 import ListFilteredPosts from 'components/posts/ListFilteredPosts';
-import { ListPageResults } from 'dao/generated/graphql';
+import { ListPageResults, PostForList } from 'dao/generated/graphql';
 import getPostListByCategoryId from 'logics/getPostListByCategoryId';
 import getSearchedPosts from 'logics/getSearchedPosts';
 import postListPageResolver from 'resolvers/postListPageResolver';
@@ -13,6 +13,10 @@ import postListPageResolver from 'resolvers/postListPageResolver';
 type Props = {
   data: ListPageResults;
   initialCategoryId: number;
+};
+type FilteringPostList = {
+  category: PostForList[];
+  title: PostForList[];
 };
 const TextFieldStyle = {
   width: 'calc(100% - 44px)',
@@ -25,29 +29,45 @@ const TextFieldStyle = {
 
 const Index: NextPage<Props> = ({ data, initialCategoryId }) => {
   const { posts, categories } = data;
+  // 検索値
   const [searchValue, setSearchValue] = useState('');
   const [selectedTabKey, setSelectedTabKey] = useState(initialCategoryId);
-  const [filteredPosts, setFilteringPosts] = useState(
-    getPostListByCategoryId(posts, selectedTabKey),
-  );
+  // カテゴリーでフィルタリングされた投稿一覧
+  const [filteringPosts, setFilteringPosts] = useState<FilteringPostList>({
+    category: getPostListByCategoryId(posts, selectedTabKey),
+    title: [],
+  });
+  const postList =
+    filteringPosts.title.length === 0
+      ? filteringPosts.category
+      : filteringPosts.title;
 
+  // カテゴリータブ切り替え
   const handleChangeSelectedTab = useCallback(
     (_event: SyntheticEvent, tabKey: number) => {
       setSelectedTabKey(tabKey);
       setSearchValue('');
-      setFilteringPosts(getPostListByCategoryId(posts, tabKey));
+      setFilteringPosts({
+        category: getPostListByCategoryId(posts, tabKey),
+        title: [],
+      });
     },
-    [posts, setFilteringPosts, setSearchValue],
+    [posts, setSearchValue],
   );
+  // タイトル検索
+  const searchPosts = useCallback(() => {
+    setFilteringPosts((prev) => ({
+      ...prev,
+      title: getSearchedPosts(filteringPosts.category, searchValue),
+    }));
+  }, [searchValue, filteringPosts.category]);
+  // タイトル入力
   const handleSearchInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchValue(e.target.value);
     },
     [setSearchValue],
   );
-  const searchPosts = useCallback(() => {
-    setFilteringPosts(getSearchedPosts(filteredPosts, searchValue));
-  }, [filteredPosts, searchValue]);
 
   return (
     <>
@@ -97,7 +117,7 @@ const Index: NextPage<Props> = ({ data, initialCategoryId }) => {
         categories={categories}
         hasAll={true}
         selectedTabKey={selectedTabKey}
-        posts={filteredPosts}
+        posts={postList}
         onChange={handleChangeSelectedTab}
       />
     </>

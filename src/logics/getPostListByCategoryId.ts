@@ -5,13 +5,12 @@ const getPostListByCategoryId = (
   categoryId: number,
 ): PostForList[] => {
   if (categoryId === 0) return posts;
-  const categoryIds = posts.flatMap((p) =>
-    p.categories.map((c) => c.categoryId),
-  );
-  return posts.flatMap((p) => {
-    const isInclude = categoryIds.includes(categoryId);
-    return isInclude ? p : [];
+  const results = posts.flatMap((p) => {
+    const ids = p.categories.map((c) => c.categoryId);
+    const hasId = ids.includes(categoryId);
+    return hasId ? p : [];
   });
+  return results;
 };
 
 export default getPostListByCategoryId;

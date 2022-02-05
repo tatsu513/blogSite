@@ -8,6 +8,7 @@ export const postListPageResolver = async (): Promise<ListPageResults> => {
   const graphqlSdk = getSdk(createGraphqlClient());
   const response = await graphqlSdk.homePage();
   const posts = WordpressPostsToPosts(response.posts.nodes);
+  // console.log({ posts });
   const categories = getCategoriesByPosts(posts);
 
   return { posts, categories };
