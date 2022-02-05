@@ -1,13 +1,7 @@
 import { Category, PostForList } from 'dao/generated/graphql';
 
 const getCategoriesByPosts = (posts: PostForList[]): Category[] => {
-  const categories = posts.map((p) => {
-    return {
-      categoryId: p.category.categoryId,
-      name: p.category.name,
-    };
-  });
-
+  const categories = posts.flatMap((p) => p.categories);
   return categories.filter(
     (c, i, self) => self.findIndex((s) => s.categoryId === c.categoryId) === i,
   );

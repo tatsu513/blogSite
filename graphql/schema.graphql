@@ -51,7 +51,7 @@ type Categories {
   nodes: [CategoriesNode!]!
 }
 type CategoriesNode {
-  name: String
+  name: String!
 }
 
 ### 画面への返却値
@@ -69,7 +69,7 @@ type PostForList {
   # 最終更新日
   date: String!
   # カテゴリ
-  category: Category!
+  categories: [Category!]!
   # アイキャッチイメージURL
   mediaItemUrl: String!
 }
@@ -84,7 +84,7 @@ type Post {
   # 最終更新日
   date: String!
   # カテゴリ
-  category: String!
+  category: [String!]!
   # アイキャッチイメージURL
   mediaItemUrl: String!
 }
