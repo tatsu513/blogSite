@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import Logo from '../../public/logo.svg';
 import { white } from 'color';
@@ -46,7 +47,11 @@ const Header = () => {
         />
       </Box>
       <Box sx={{ ...contentBoxStyle }}>
-        <Logo />
+        <Link href='/' passHref>
+          <Box component='a'>
+            <Logo />
+          </Box>
+        </Link>
         <Typography sx={{ ...headerTitleStyle }}>
           “50歳からを人生で一番楽しく”
           <br />
