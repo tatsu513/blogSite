@@ -10,7 +10,7 @@ const WordpressPostsToPosts = (posts: ListPost[]): PostForList[] => {
       title: p.title,
       date: WordpressDateToString(p.date),
       mediaItemUrl: p.featuredImage?.node.mediaItemUrl ?? sampleImg,
-      category: p.categories.nodes,
+      categories: p.categories.nodes,
     };
   });
   return frontendPosts;

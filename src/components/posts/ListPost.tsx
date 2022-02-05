@@ -10,7 +10,7 @@ type Props = {
 
 const ListPost: React.VFC<Props> = ({ posts, maxNum }) => {
   const showPosts = maxNum ? posts.slice(0, maxNum) : posts;
-  const categoryNames = posts.flatMap((p) => p.category).map((c) => c.name);
+  const categoryNames = posts.flatMap((p) => p.categories).map((c) => c.name);
   return (
     <Grid container justifyContent='flex-start' spacing={5}>
       {showPosts.map((p) => (

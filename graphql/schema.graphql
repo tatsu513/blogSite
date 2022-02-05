@@ -69,7 +69,7 @@ type PostForList {
   # 最終更新日
   date: String!
   # カテゴリ
-  category: [Category!]!
+  categories: [Category!]!
   # アイキャッチイメージURL
   mediaItemUrl: String!
 }

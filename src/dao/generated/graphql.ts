@@ -79,7 +79,7 @@ export type Post = {
 
 export type PostForList = {
   __typename?: 'PostForList';
-  category: Array<Category>;
+  categories: Array<Category>;
   date: Scalars['String'];
   id: Scalars['ID'];
   mediaItemUrl: Scalars['String'];
