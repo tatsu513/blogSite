@@ -26,6 +26,7 @@ const titleStyle = {
 };
 
 const Index: NextPage<Props> = ({ post }) => {
+  console.log(post.category);
   return (
     <Box sx={{ ...containerStyle }}>
       <Box
@@ -33,7 +34,12 @@ const Index: NextPage<Props> = ({ post }) => {
         justifyContent='space-between'
         sx={{ marginBottom: '16px' }}
       >
-        <Typography variant='caption'>{post.category}</Typography>
+        {post.category.map((c, i) => (
+          <Typography key={c} variant='caption'>
+            {c}
+            {i !== post.category.length - 1 && <> / </>}
+          </Typography>
+        ))}
         <Typography variant='caption'>{post.date}</Typography>
       </Box>
       <Typography variant='h1' sx={{ ...titleStyle }}>

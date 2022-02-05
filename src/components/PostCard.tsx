@@ -1,10 +1,10 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import Link from 'next/link';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { shadow } from 'shadow';
 
 type PostCardProps = {
-  category: string;
+  categoryNames: string[];
   date: string;
   id: string;
   mediaUrl: string;
@@ -32,7 +32,7 @@ const titleStyle = {
 };
 
 const PostCard: React.VFC<PostCardProps> = ({
-  category,
+  categoryNames,
   date,
   id,
   mediaUrl,
@@ -49,7 +49,14 @@ const PostCard: React.VFC<PostCardProps> = ({
         />
         <CardContent>
           <Box display='flex' justifyContent='space-between'>
-            <Typography variant='caption'>{category}</Typography>
+            <Box>
+              {categoryNames.map((n, i) => (
+                <Typography key={n} variant='caption'>
+                  {n}
+                  {i !== categoryNames.length - 1 && <> / </>}
+                </Typography>
+              ))}
+            </Box>
             <Typography variant='caption'>{date}</Typography>
           </Box>
           <Box sx={{ ...titleBoxStyle }}>

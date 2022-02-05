@@ -22,7 +22,7 @@ export type Categories = {
 
 export type CategoriesNode = {
   __typename?: 'CategoriesNode';
-  name?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
 };
 
 export type Category = {
@@ -69,7 +69,7 @@ export type MediaItemUrl = {
 
 export type Post = {
   __typename?: 'Post';
-  category: Scalars['String'];
+  category: Array<Scalars['String']>;
   content: Scalars['String'];
   date: Scalars['String'];
   id: Scalars['ID'];
@@ -79,7 +79,7 @@ export type Post = {
 
 export type PostForList = {
   __typename?: 'PostForList';
-  category: Category;
+  category: Array<Category>;
   date: Scalars['String'];
   id: Scalars['ID'];
   mediaItemUrl: Scalars['String'];
@@ -112,7 +112,7 @@ export type PostPageQueryVariables = Exact<{
 }>;
 
 
-export type PostPageQuery = { __typename?: 'Query', post: { __typename?: 'WordpressPost', id: string, title: string, content: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'Categories', nodes: Array<{ __typename?: 'CategoriesNode', name?: string | null | undefined }> } } };
+export type PostPageQuery = { __typename?: 'Query', post: { __typename?: 'WordpressPost', id: string, title: string, content: string, date: string, featuredImage: { __typename?: 'FeaturedImageNode', node: { __typename?: 'MediaItemUrl', mediaItemUrl: string } }, categories: { __typename?: 'Categories', nodes: Array<{ __typename?: 'CategoriesNode', name: string }> } } };
 
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
