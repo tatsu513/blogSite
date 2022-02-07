@@ -22,6 +22,7 @@ const imageBoxStyle = {
   position: 'relative',
 };
 const titleStyle = {
+  lineHeight: '1.5',
   textAlign: 'justify',
 };
 
