@@ -5,6 +5,7 @@
     "unfetch",
     "preconnect",
     "Noto",
-    "jsfiddle"
+    "jsfiddle",
+    "svgr"
   ]
 }
