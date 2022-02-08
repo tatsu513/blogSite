@@ -1,5 +1,5 @@
 const fetchApi = async (query: string, { variables }: any = {}) => {
-  const ApiUrl = String(process.env.WP_GQL);
+  const ApiUrl = String(process.env.NEXT_PUBLIC_WP_GQL);
   const getHeaders = () => {
     const headers = new Headers();
     if (!headers.get('content-type')) {
