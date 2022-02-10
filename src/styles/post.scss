@@ -27,6 +27,8 @@ $gray: #a3a2a2;
   h2 {
     margin-top: 64px;
     margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #208b78;
     color: $green;
     font-size: 20px;
     font-weight: bold;
@@ -45,8 +47,20 @@ $gray: #a3a2a2;
     margin-bottom: 24px;
     line-height: 1.9;
   }
+  .image-box {
+    height: 400px;
+    width: 100%;
+    margin-bottom: 40px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
   ul {
     margin-bottom: 40px;
+    padding: 24px;
+    background-color: #f1f1f1;
   }
   li {
     padding-left: 24px;
@@ -71,6 +85,10 @@ $gray: #a3a2a2;
     font-family: inherit;
     line-height: 1;
   }
+  strong {
+    color: inherit;
+    font-weight: 500;
+  }
   .information-box {
     padding: 16px;
     margin-bottom: 40px;
@@ -80,5 +98,20 @@ $gray: #a3a2a2;
   }
   .jsfiddle {
     margin-bottom: 40px;
+  }
+  .marker {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    &::after {
+      content: '';
+      height: 12px;
+      width: 100%;
+      background-color: #faedad;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+    }
   }
 }

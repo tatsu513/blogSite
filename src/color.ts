@@ -14,6 +14,7 @@ export const orange = {
 };
 // 灰色
 export const gray = {
+  0: 'F1F1F1',
   100: '#DCDCDC',
   200: '#A3A2A2',
   300: '#6D6D6D',
